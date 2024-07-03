@@ -38,6 +38,8 @@ print(p)
 
 ggsave("./figures/phy_map_maia_county.png", width = 10, height = 8, dpi = 600)
 
+ggplot(data = dataset_merge_maia_fix)
+
 ggplot(data = usa_map) +
   geom_polygon(aes(x = long, y = lat, group = group), fill = "deeppink", color = "black") +
   theme_light() +
@@ -96,4 +98,4 @@ ggplot(data = usa_map_data) +
   coord_fixed(1.3) +
   labs(title = "Map of the USA with Pink Shiny Gradient States", fill = "Value", color = "Value")
 
-
+ggplot()

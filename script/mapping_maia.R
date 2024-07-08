@@ -4,6 +4,8 @@ install.packages("sf") # for handling spatial data
 library(ggplot2)
 library(maps)
 library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
 
 usa_map <- map_data("state")
 
@@ -25,7 +27,7 @@ p <- ggplot(data = st_as_sf(dataset_merge_maia_fix, coords = c("Longitude", "Lat
   geom_sf(data = usa_state, fill = "thistle1", color = "darkgreen") +
   geom_sf(data = canada_state, fill = "lightgreen", color = "hotpink") +
   geom_sf(data = mexico_state, fill = NA, color = "purple3") +
-  geom_sf(size = 4, aes(color = County, shape = County)) +
+  geom_sf(size = 4, aes(color = MaternalLine, shape = MaternalLine)) +
   scale_shape_manual(values = 1:8) +
   xlab("") +
   ylab("") +
@@ -38,7 +40,7 @@ print(p)
 
 ggsave("./figures/phy_map_maia_county.png", width = 10, height = 8, dpi = 600)
 
-ggplot(data = dataset_merge_maia_fix)
+#########################################
 
 ggplot(data = usa_map) +
   geom_polygon(aes(x = long, y = lat, group = group), fill = "deeppink", color = "black") +

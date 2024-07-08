@@ -101,3 +101,4 @@ ggplot(data = usa_map_data) +
   labs(title = "Map of the USA with Pink Shiny Gradient States", fill = "Value", color = "Value")
 
 ggplot()
+

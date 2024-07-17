@@ -5,18 +5,18 @@ library(tidyverse)
 library(rnaturalearth)
 library(rnaturalearthdata)
 library(rnaturalearthhires)
-library(stars)
+# library(stars)
 
-setwd("/Users/kuowenhsi/OneDrive - Washington University in St. Louis/GBS_wild_population")
+setwd("/Users/kuowenhsi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/MOBOT/MOBOT_Physaria")
 
 env_files <- list.files("/Users/kuowenhsi/OneDrive - Washington University in St. Louis/Undergrad/Grace/Env_varibles", pattern = "*.tif$")
 env_files
 
-cyano_data <- read_csv("/Users/kuowenhsi/OneDrive - Washington University in St. Louis/GBS_wild_population/02_phenotype_data/wc419_pop_pheno.csv")
+Physaria_data <- read_csv("./data/Physaria_MergedData_20240703.csv")
 
-cyano_data_sf <- st_as_sf(cyano_data, coords = c("Longitude", "Latitude"), agr = "constant", crs = 4326)
+Physaria_data_sf <- st_as_sf(Physaria_data, coords = c("Longitude", "Latitude"), agr = "constant", crs = 4326)
 
-plot(cyano_data_sf)
+plot(Physaria_data_sf)
 
 wc_names <- c(BIO1 = "Annual Mean Temperature",
               BIO2 = "Mean Diurnal Range (Mean of monthly (max temp - min temp))",
@@ -39,10 +39,15 @@ wc_names <- c(BIO1 = "Annual Mean Temperature",
               BIO19 = "Precipitation of Coldest Quarter")
 
 
-usa_state <- ne_states(country = "United States of America", returnclass = "sf")%>%st_crop(xmin = -125, ymin = -55, xmax = -30, ymax = 60)%>%st_geometry()
-
-canada_state <- ne_states(country = "canada", returnclass = "sf")%>%st_geometry()
-mexico_state <- ne_states(country = "mexico", returnclass = "sf")%>%st_geometry()
+usa_state <- ne_states(country = "United States of America", returnclass = "sf") %>%
+  st_crop(xmin = -135, ymin = -55, xmax = -65, ymax = 60) %>%
+  st_geometry()
+canada_state <- ne_states(country = "canada", returnclass = "sf") %>%
+  st_crop(xmin = -135, ymin = -55, xmax = -65, ymax = 60) %>%
+  st_geometry()
+mexico_state <- ne_states(country = "mexico", returnclass = "sf") %>%
+  st_crop(xmin = -135, ymin = -55, xmax = -65, ymax = 60) %>%
+  st_geometry()
 
 class(usa_state)
 plot(usa_state, axes = TRUE)

@@ -1,13 +1,43 @@
 library(tidyverse)
 library(RColorBrewer)
+library(car)
+library(agricolae)
 
 setwd("/Users/kuowenhsi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/MOBOT/MOBOT_Physaria")
 
-phy_tidy_data <- read_csv("data/Physaria_MergedData_tidy_20240703.csv")
+phy_tidy_data <- read_csv("data/Physaria_MergedData_tidy_20240703.csv") %>%
+
 unique(phy_tidy_data$variable_name)
+colnames(phy_tidy_data)
+unique(phy_tidy_data$Longitude)
+unique(phy_tidy_data$Latitude)
 
 # Custom color palette with shades of pink and purple
 palette <- c("thistle", "mediumpurple", "deeppink", "maroon3", "magenta", "pink", "lavender", "purple")
+
+
+Physaria_leafArea <- filter(phy_tidy_data, variable_name == "leafArea") %>%
+  mutate(MaternalLine = str_replace_all(MaternalLine, "-", "_")) %>%
+  group_by(MaternalLine)%>%
+  mutate(mean_leafArea = mean(values, na.rm = TRUE))
+
+
+p <- ggplot(data = Physaria_leafArea, aes(x = reorder(MaternalLine, mean_leafArea), y = values, fill = MaternalLine)) +
+  geom_boxplot(color = "black") +  # Using black for the outline to ensure visibility
+  # geom_point(position = position_jitter(width = 0.05)) +
+  scale_fill_manual(values = palette) +
+  theme_bw()
+p
+
+leafArea <- aov(lm(values ~ MaternalLine, data = Physaria_leafArea))
+leafArea
+summary(leafArea)
+
+HSD_result <- HSD.test(leafArea, "MaternalLine")
+
+# Print the results of Tukey's HSD test
+print(HSD_result)
+
 
 # Make sure your dataset has no more levels of MaternalLine than colors in the palette
 p <- ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = MaternalLine, y = values, fill = MaternalLine)) +

@@ -8,120 +8,318 @@ setwd("C:/Users/maial/Downloads/MBG REU/MOBOT_Physaria")
 phy_tidy_data <- read_csv("data/physaria_buf_climate_data_20240717_l.csv")
 unique(phy_tidy_data$variable_name)
 
-# Make sure your dataset has no more levels of MaternalLine than colors in the palette
-p <- ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = wc2.1_30s_bio_1, y = values))+
-  geom_point()+
-  geom_point(data = filter(phy_tidy_data, variable_name == "leafArea"), color = "red")+
-  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafArea"), method = "lm", color = "blue")+
-  stat_cor(data = filter(phy_tidy_data, variable_name == "leafArea"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
-  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafArea"),label.x.npc = 0, label.y.npc = 0.95)+
-  scale_x_continuous(name = "Annual Mean Temperature")+
-  scale_y_continuous(name = "Leaf Area")+
-  facet_wrap(.~variable_name, nrow = 1)+
-  theme_bw()+
+# Create the boxplot and add the ANOVA results
+p <- ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = as.factor(wc2.1_30s_bio_1), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Annual Mean Temperature") +
+  scale_y_continuous(name = "Leaf Area") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
   theme(panel.grid.minor = element_blank(), legend.position = "bottom")
-
-p  
+  
+print(p)
 
 ggsave("./figures/phy_figure_bio1.png", width = 10, height = 8, dpi = 600)
 
-p2 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = wc2.1_30s_bio_7, y = values))+
-  geom_point()+
-  geom_point(data = filter(phy_tidy_data, variable_name == "leafArea"), color = "red")+
-  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafArea"), method = "lm", color = "blue")+
-  stat_cor(data = filter(phy_tidy_data, variable_name == "leafArea"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
-  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafArea"),label.x.npc = 0, label.y.npc = 0.95)+
-  scale_x_continuous(name = "Temperature Annual Range")+
-  scale_y_continuous(name = "Leaf Area")+
-  facet_wrap(.~variable_name, nrow = 1)+
-  theme_bw()+
+p2 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = as.factor(wc2.1_30s_bio_7), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Temperature Annual Range") +
+  scale_y_continuous(name = "Leaf Area") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
   theme(panel.grid.minor = element_blank(), legend.position = "bottom")
 
-p2  
+print(p2)
+ 
+ggsave("./figures/phy_figure_bio7.png", width = 10, height = 8, dpi = 600)
 
-p3 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = wc2.1_30s_bio_12, y = values))+
-  geom_point()+
-  geom_point(data = filter(phy_tidy_data, variable_name == "leafArea"), color = "red")+
-  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafArea"), method = "lm", color = "blue")+
-  stat_cor(data = filter(phy_tidy_data, variable_name == "leafArea"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
-  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafArea"),label.x.npc = 0, label.y.npc = 0.95)+
-  scale_x_continuous(name = "Annual Precipatation")+
-  scale_y_continuous(name = "Leaf Area")+
-  facet_wrap(.~variable_name, nrow = 1)+
-  theme_bw()+
+p3 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = as.factor(wc2.1_30s_bio_12), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Annual Precipatation") +
+  scale_y_continuous(name = "Leaf Area") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
   theme(panel.grid.minor = element_blank(), legend.position = "bottom")
 
-p3  
+print(p3)
 
-p4 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = wc2.1_30s_elev, y = values))+
-  geom_point()+
-  geom_point(data = filter(phy_tidy_data, variable_name == "leafArea"), color = "red")+
-  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafArea"), method = "lm", color = "blue")+
-  stat_cor(data = filter(phy_tidy_data, variable_name == "leafArea"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
-  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafArea"),label.x.npc = 0, label.y.npc = 0.95)+
-  scale_x_continuous(name = "Elevation")+
-  scale_y_continuous(name = "Leaf Area")+
-  facet_wrap(.~variable_name, nrow = 1)+
-  theme_bw()+
+ggsave("./figures/phy_figure_bio12.png", width = 10, height = 8, dpi = 600)
+
+p4 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = as.factor(wc2.1_30s_elev), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Elevation") +
+  scale_y_continuous(name = "Leaf Area") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
   theme(panel.grid.minor = element_blank(), legend.position = "bottom")
 
-p4
+print(p4)
 
-p5 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = wc2.1_30s_elev, y = values))+
-  geom_point()+
-  geom_point(data = filter(phy_tidy_data, variable_name == "leafLong"), color = "red")+
-  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafLong"), method = "lm", color = "blue")+
-  stat_cor(data = filter(phy_tidy_data, variable_name == "leafLong"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
-  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafLong"),label.x.npc = 0, label.y.npc = 0.95)+
-  scale_x_continuous(name = "Elevation")+
-  scale_y_continuous(name = "Leaf Length (cm)")+
-  facet_wrap(.~variable_name, nrow = 1)+
-  theme_bw()+
+ggsave("./figures/phy_figure_elev.png", width = 10, height = 8, dpi = 600)
+
+p5 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = as.factor(wc2.1_30s_bio_1), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Annual Mean Temperature") +
+  scale_y_continuous(name = "Leaf Long") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
   theme(panel.grid.minor = element_blank(), legend.position = "bottom")
 
-p5
+print(p5)
 
-p6 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = wc2.1_30s_bio_1, y = values))+
-  geom_point()+
-  geom_point(data = filter(phy_tidy_data, variable_name == "leafLong"), color = "red")+
-  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafLong"), method = "lm", color = "blue")+
-  stat_cor(data = filter(phy_tidy_data, variable_name == "leafLong"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
-  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafLong"),label.x.npc = 0, label.y.npc = 0.95)+
-  scale_x_continuous(name = "Annual Mean Temperature")+
-  scale_y_continuous(name = "Leaf Length (cm)")+
-  facet_wrap(.~variable_name, nrow = 1)+
-  theme_bw()+
+ggsave("./figures/phy_figure2_bio1.png", width = 10, height = 8, dpi = 600)
+
+p6 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = as.factor(wc2.1_30s_bio_7), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Temperature Annual Range") +
+  scale_y_continuous(name = "Leaf Long") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
   theme(panel.grid.minor = element_blank(), legend.position = "bottom")
 
-p6
+print(p6)
 
-p7 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = wc2.1_30s_bio_12, y = values))+
-  geom_point()+
-  geom_point(data = filter(phy_tidy_data, variable_name == "leafLong"), color = "red")+
-  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafLong"), method = "lm", color = "blue")+
-  stat_cor(data = filter(phy_tidy_data, variable_name == "leafLong"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
-  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafLong"),label.x.npc = 0, label.y.npc = 0.95)+
-  scale_x_continuous(name = "Annual Precipatation")+
-  scale_y_continuous(name = "Leaf Long")+
-  facet_wrap(.~variable_name, nrow = 1)+
-  theme_bw()+
+ggsave("./figures/phy_figure2_bio7.png", width = 10, height = 8, dpi = 600)
+
+p7 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = as.factor(wc2.1_30s_bio_12), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Annual Precipatation") +
+  scale_y_continuous(name = "Leaf Long") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
   theme(panel.grid.minor = element_blank(), legend.position = "bottom")
 
-p7
+print(p7)
 
-p8 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = wc2.1_30s_bio_7, y = values))+
-  geom_point()+
-  geom_point(data = filter(phy_tidy_data, variable_name == "leafLong"), color = "red")+
-  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafLong"), method = "lm", color = "blue")+
-  stat_cor(data = filter(phy_tidy_data, variable_name == "leafLong"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
-  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafLong"),label.x.npc = 0, label.y.npc = 0.95)+
-  scale_x_continuous(name = "Temperature Annual Range")+
-  scale_y_continuous(name = "Leaf Long")+
-  facet_wrap(.~variable_name, nrow = 1)+
-  theme_bw()+
+ggsave("./figures/phy_figure2_bio12.png", width = 10, height = 8, dpi = 600)
+
+p8 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = as.factor(wc2.1_30s_elev), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Elevation") +
+  scale_y_continuous(name = "Leaf Long") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
   theme(panel.grid.minor = element_blank(), legend.position = "bottom")
 
-p8  
+print(p8)
+
+ggsave("./figures/phy_figure2_elev.png", width = 10, height = 8, dpi = 600)
+
+p9 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafWide"), aes(x = as.factor(wc2.1_30s_bio_1), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Annual Mean Temperature") +
+  scale_y_continuous(name = "Leaf Width") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p9)
+
+ggsave("./figures/phy_figure3_bio1.png", width = 10, height = 8, dpi = 600)
+
+p10 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafWide"), aes(x = as.factor(wc2.1_30s_bio_7), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Temperature Annual Range") +
+  scale_y_continuous(name = "Leaf Width") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p10)
+
+ggsave("./figures/phy_figure3_bio7.png", width = 10, height = 8, dpi = 600)
+
+p11 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafWide"), aes(x = as.factor(wc2.1_30s_bio_12), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Annual Precipatation") +
+  scale_y_continuous(name = "Leaf Width") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p11)
+
+ggsave("./figures/phy_figure3_bio12.png", width = 10, height = 8, dpi = 600)
+
+p12 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafWide"), aes(x = as.factor(wc2.1_30s_elev), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Elevation") +
+  scale_y_continuous(name = "Leaf Width") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p12)
+
+ggsave("./figures/phy_figure3_elev.png", width = 10, height = 8, dpi = 600)
+
+p13 <- ggplot(data = filter(phy_tidy_data, variable_name == "stemDia"), aes(x = as.factor(wc2.1_30s_bio_1), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Annual Mean Temperature") +
+  scale_y_continuous(name = "Stem Diameter") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p13)
+
+ggsave("./figures/phy_figure4_bio1.png", width = 10, height = 8, dpi = 600)
+
+p14 <- ggplot(data = filter(phy_tidy_data, variable_name == "stemDia"), aes(x = as.factor(wc2.1_30s_bio_7), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Temperature Annual Range") +
+  scale_y_continuous(name = "Stem Diameter") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p14)
+
+ggsave("./figures/phy_figure4_bio7.png", width = 10, height = 8, dpi = 600)
+
+p15 <- ggplot(data = filter(phy_tidy_data, variable_name == "stemDia"), aes(x = as.factor(wc2.1_30s_bio_12), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Annual Precipatation") +
+  scale_y_continuous(name = "Stem Diameter") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p15)
+
+ggsave("./figures/phy_figure4_bio12.png", width = 10, height = 8, dpi = 600)
+
+p16 <- ggplot(data = filter(phy_tidy_data, variable_name == "stemDia"), aes(x = as.factor(wc2.1_30s_elev), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Elevation") +
+  scale_y_continuous(name = "Stem Diameter") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p16)
+
+ggsave("./figures/phy_figure4_elev.png", width = 10, height = 8, dpi = 600)
+
+p17 <- ggplot(data = filter(phy_tidy_data, variable_name == "stemLength"), aes(x = as.factor(wc2.1_30s_bio_1), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Annual Mean Temperature") +
+  scale_y_continuous(name = "Stem Length") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p17)
+
+ggsave("./figures/phy_figure5_bio1.png", width = 10, height = 8, dpi = 600)
+
+p18 <- ggplot(data = filter(phy_tidy_data, variable_name == "stemLength"), aes(x = as.factor(wc2.1_30s_bio_7), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Temperature Annual Range") +
+  scale_y_continuous(name = "Stem Length") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p18)
+
+ggsave("./figures/phy_figure5_bio7.png", width = 10, height = 8, dpi = 600)
+
+p19 <- ggplot(data = filter(phy_tidy_data, variable_name == "stemLength"), aes(x = as.factor(wc2.1_30s_bio_12), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Annual Precipatation") +
+  scale_y_continuous(name = "Stem Length") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p19)
+
+ggsave("./figures/phy_figure5_bio12.png", width = 10, height = 8, dpi = 600)
+
+p20 <- ggplot(data = filter(phy_tidy_data, variable_name == "stemLength"), aes(x = as.factor(wc2.1_30s_elev), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Elevation") +
+  scale_y_continuous(name = "Stem Length") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p20)
+
+ggsave("./figures/phy_figure5_elev.png", width = 10, height = 8, dpi = 600)
+
+p21 <- ggplot(data = filter(phy_tidy_data, variable_name == "numLeaf"), aes(x = as.factor(wc2.1_30s_bio_1), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Annual Mean Temperature") +
+  scale_y_continuous(name = "Number of Leaves") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p21)
+
+ggsave("./figures/phy_figure6_bio1.png", width = 10, height = 8, dpi = 600)
+
+p22 <- ggplot(data = filter(phy_tidy_data, variable_name == "numLeaf"), aes(x = as.factor(wc2.1_30s_bio_7), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Temperature Annual Range") +
+  scale_y_continuous(name = "Number of Leaves") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p22)
+
+ggsave("./figures/phy_figure6_bio7.png", width = 10, height = 8, dpi = 600)
+
+p23 <- ggplot(data = filter(phy_tidy_data, variable_name == "numLeaf"), aes(x = as.factor(wc2.1_30s_bio_12), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Annual Precipatation") +
+  scale_y_continuous(name = "Number of Leaves") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p23)
+
+ggsave("./figures/phy_figure6_bio12.png", width = 10, height = 8, dpi = 600)
+
+p24 <- ggplot(data = filter(phy_tidy_data, variable_name == "numLeaf"), aes(x = as.factor(wc2.1_30s_elev), y = values)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Elevation") +
+  scale_y_continuous(name = "Number of Leaves") +
+  facet_wrap(.~variable_name, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+print(p24)
+ 
+ggsave("./figures/phy_figure6_elev.png", width = 10, height = 8, dpi = 600)
 
 ############################################################################################
 
@@ -138,14 +336,59 @@ p2
 
 ggsave("./figures/phy_maternal_length_2_maia_07082024.png", width = 10, height = 8, dpi = 600)
 
-p4 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = Latitude, y = values, fill = Latitude)) +
+ggplot(data = filter(phy_tidy_data, variable_name == "stemDia"), aes(x = MaternalLine, y = values, fill = MaternalLine)) +
   geom_violin(color = "black", alpha = 0.4) +  # Using black for the outline to ensure visibility
   geom_point(position = position_jitter(width = 0.05)) +
-  labs(x = "Maternal Line", y = "Leaf Length (cm)") +
+  labs(x = "Site/Accession", y = "Stem Diameter") +
   theme_bw() +
   theme(legend.position = "none")
 
-p4
+ggsave("./figures/phy_maternal_dia.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = filter(phy_tidy_data, variable_name == "stemLength"), aes(x = MaternalLine, y = values, fill = MaternalLine)) +
+  geom_violin(color = "black", alpha = 0.4) +  # Using black for the outline to ensure visibility
+  geom_point(position = position_jitter(width = 0.05)) +
+  labs(x = "Site/Accession", y = "Stem Length") +
+  theme_bw() +
+  theme(legend.position = "none")
+
+ggsave("./figures/phy_maternal_stmlong.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = filter(phy_tidy_data, variable_name == "numLeaf"), aes(x = MaternalLine, y = values, fill = MaternalLine)) +
+  geom_violin(color = "black", alpha = 0.4) +  # Using black for the outline to ensure visibility
+  geom_point(position = position_jitter(width = 0.05)) +
+  labs(x = "Site/Accession", y = "Number of Leaves") +
+  theme_bw() +
+  theme(legend.position = "none")
+
+ggsave("./figures/phy_maternal_numLeaf.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = MaternalLine, y = values, fill = MaternalLine)) +
+  geom_violin(color = "black", alpha = 0.4) +  # Using black for the outline to ensure visibility
+  geom_point(position = position_jitter(width = 0.05)) +
+  labs(x = "Site/Accession", y = "Leaf Area") +
+  theme_bw() +
+  theme(legend.position = "none")
+
+ggsave("./figures/phy_site_area.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = filter(phy_tidy_data, variable_name == "leafWide"), aes(x = MaternalLine, y = values, fill = MaternalLine)) +
+  geom_violin(color = "black", alpha = 0.4) +  # Using black for the outline to ensure visibility
+  geom_point(position = position_jitter(width = 0.05)) +
+  labs(x = "Site/Accession", y = "Leaf Width") +
+  theme_bw() +
+  theme(legend.position = "none")
+
+ggsave("./figures/phy_site_wide.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = MaternalLine, y = values, fill = MaternalLine)) +
+  geom_violin(color = "black", alpha = 0.4) +  # Using black for the outline to ensure visibility
+  geom_point(position = position_jitter(width = 0.05)) +
+  labs(x = "Site/Accession", y = "Leaf Long") +
+  theme_bw() +
+  theme(legend.position = "none")
+
+ggsave("./figures/phy_site_long.png", width = 10, height = 8, dpi = 600)
 
 #################################################################################################
 
@@ -161,10 +404,10 @@ scatterplot_data <- filter(phy_tidy_data, variable_name %in% c("leafLong", "leaf
   ungroup()
 
 # Create the plot
-p3 <- ggplot(data = scatterplot_data, aes(x = Latitude, y = leafLong)) +
+p3 <- ggplot(data = scatterplot_data, aes(x = MaternalLine, y = stemDia)) +
   geom_point(color = "deeppink") +
   geom_smooth(method = "lm", color = "purple3", se = TRUE) +  # Add linear regression line
-  labs(x = "Latitude", y = "Leaf Length") +
+  labs(x = "Site/Accession", y = "Stem Diameter") +
   theme_bw() +
   theme(legend.position = "none")
 
@@ -239,7 +482,7 @@ filter_data_fix <- filtered_data %>%
                                flwrBud.2 == "N" ~ 0,
                                TRUE ~ as.numeric(NA)))
 
-unique(phy_tidy_data$Longitude)
+unique(phy_tidy_data$variable_name)
 unique(phy_tidy_data$FlowerHead)
 
 ################################################################################################################################

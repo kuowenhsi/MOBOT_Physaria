@@ -462,16 +462,49 @@ ggsave("./figures/phy_flwr_area_07082024.png", width = 10, height = 8, dpi = 600
 ######################################################################################
 
 # Plotting using Facet Wrap
-ggplot(data = scatterplot_data, aes(x = leafArea, y = leafLong, color = MaternalLine)) +
+ggplot(data = scatterplot_data, aes(x = leafArea, y = leafLong, color = wc2.1_30s_bio_1)) +
   geom_point() +
   geom_smooth(method = "lm", color = "deeppink", se = TRUE) +  # Add linear regression line
   stat_cor(method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
   stat_regline_equation(label.x.npc = 0, label.y.npc = 0.95) +
-  labs(x = "Green Pixel Area", y = "Leaf Width at Week 10 (leafWide.10)") +
+  labs(x = "Green Pixel Area", y = "Leaf Long") +
   theme_bw() +
-  facet_wrap(~ MaternalLine)  # Replace 'maternal_line' with the actual column name for maternal lines
+  facet_wrap(~ wc2.1_30s_bio_1)  # Replace 'maternal_line' with the actual column name for maternal lines
 
 ggsave("./figures/phy_facet_maternal_07092024.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = scatterplot_data, aes(x = leafArea, y = leafLong, color = wc2.1_30s_bio_7)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "deeppink", se = TRUE) +  # Add linear regression line
+  stat_cor(method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(label.x.npc = 0, label.y.npc = 0.95) +
+  labs(x = "Green Pixel Area", y = "Leaf Long") +
+  theme_bw() +
+  facet_wrap(~ wc2.1_30s_bio_7)  # Replace 'maternal_line' with the actual column name for maternal lines
+
+ggsave("./figures/phy_facet_maternal1_07092024.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = scatterplot_data, aes(x = leafArea, y = leafLong, color = wc2.1_30s_bio_12)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "deeppink", se = TRUE) +  # Add linear regression line
+  stat_cor(method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(label.x.npc = 0, label.y.npc = 0.95) +
+  labs(x = "Green Pixel Area", y = "Leaf Long") +
+  theme_bw() +
+  facet_wrap(~ wc2.1_30s_bio_12)  # Replace 'maternal_line' with the actual column name for maternal lines
+
+ggsave("./figures/phy_facet_maternal2_07092024.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = scatterplot_data, aes(x = leafArea, y = leafLong, color = wc2.1_30s_elev)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "deeppink", se = TRUE) +  # Add linear regression line
+  stat_cor(method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(label.x.npc = 0, label.y.npc = 0.95) +
+  labs(x = "Green Pixel Area", y = "Leaf Long") +
+  theme_bw() +
+  facet_wrap(~ wc2.1_30s_elev)  # Replace 'maternal_line' with the actual column name for maternal lines
+
+ggsave("./figures/phy_facet_maternal3_07092024.png", width = 10, height = 8, dpi = 600)
 
 ######################################################################################################################################
 
@@ -592,3 +625,145 @@ phy_data <- read_csv("data/physaria_buf_climate_data_20240717.csv")
 ggplot(data = phy_data, aes(x = wc2.1_30s_bio_16, y = leafLong.10)) +
   geom_point(color = "deeppink") +
   theme_bw() 
+
+ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = wc2.1_30s_bio_1, y = values))+
+  geom_point()+
+  geom_point(data = filter(phy_tidy_data, variable_name == "leafArea"), color = "deeppink")+
+  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafArea"), method = "lm", color = "blue")+
+  stat_cor(data = filter(phy_tidy_data, variable_name == "leafArea"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
+  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafArea"),label.x.npc = 0, label.y.npc = 0.95)+
+  scale_x_continuous(name = "Annual Mean Temperature")+
+  scale_y_continuous(name = "Leaf Area")+
+  facet_wrap(.~variable_name, nrow = 1)+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggsave("./figures/phy_area_regression_bio1.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = wc2.1_30s_bio_7, y = values))+
+  geom_point()+
+  geom_point(data = filter(phy_tidy_data, variable_name == "leafArea"), color = "deeppink")+
+  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafArea"), method = "lm", color = "blue")+
+  stat_cor(data = filter(phy_tidy_data, variable_name == "leafArea"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
+  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafArea"),label.x.npc = 0, label.y.npc = 0.95)+
+  scale_x_continuous(name = "Annual Temperature Range")+
+  scale_y_continuous(name = "Leaf Area")+
+  facet_wrap(.~variable_name, nrow = 1)+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggsave("./figures/phy_area_regression_bio7.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = wc2.1_30s_bio_12, y = values))+
+  geom_point()+
+  geom_point(data = filter(phy_tidy_data, variable_name == "leafArea"), color = "deeppink")+
+  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafArea"), method = "lm", color = "blue")+
+  stat_cor(data = filter(phy_tidy_data, variable_name == "leafArea"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
+  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafArea"),label.x.npc = 0, label.y.npc = 0.95)+
+  scale_x_continuous(name = "Annual Precipatation")+
+  scale_y_continuous(name = "Leaf Area")+
+  facet_wrap(.~variable_name, nrow = 1)+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggsave("./figures/phy_area_regression_bio12.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = wc2.1_30s_elev, y = values))+
+  geom_point()+
+  geom_point(data = filter(phy_tidy_data, variable_name == "leafArea"), color = "deeppink")+
+  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafArea"), method = "lm", color = "blue")+
+  stat_cor(data = filter(phy_tidy_data, variable_name == "leafArea"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
+  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafArea"),label.x.npc = 0, label.y.npc = 0.95)+
+  scale_x_continuous(name = "Elevation")+
+  scale_y_continuous(name = "Leaf Area")+
+  facet_wrap(.~variable_name, nrow = 1)+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggsave("./figures/phy_area_regression_elev.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = filter(phy_tidy_data, variable_name == "stemDia"), aes(x = wc2.1_30s_bio_1, y = values))+
+  geom_point()+
+  geom_point(data = filter(phy_tidy_data, variable_name == "stemDia"), color = "deeppink")+
+  stat_smooth(data = filter(phy_tidy_data, variable_name == "stemDia"), method = "lm", color = "blue")+
+  stat_cor(data = filter(phy_tidy_data, variable_name == "stemDia"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
+  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "stemDia"),label.x.npc = 0, label.y.npc = 0.95)+
+  scale_x_continuous(name = "Annual Mean Temperature")+
+  scale_y_continuous(name = "Stem Diameter")+
+  facet_wrap(.~variable_name, nrow = 1)+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggsave("./figures/phy_dia_regression_bio1.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = filter(phy_tidy_data, variable_name == "stemDia"), aes(x = wc2.1_30s_bio_7, y = values))+
+  geom_point()+
+  geom_point(data = filter(phy_tidy_data, variable_name == "stemDia"), color = "deeppink")+
+  stat_smooth(data = filter(phy_tidy_data, variable_name == "stemDia"), method = "lm", color = "blue")+
+  stat_cor(data = filter(phy_tidy_data, variable_name == "stemDia"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
+  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "stemDia"),label.x.npc = 0, label.y.npc = 0.95)+
+  scale_x_continuous(name = "Annual Temperature Range")+
+  scale_y_continuous(name = "Stem Diameter")+
+  facet_wrap(.~variable_name, nrow = 1)+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggsave("./figures/phy_dia_regression_bio7.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = filter(phy_tidy_data, variable_name == "stemDia"), aes(x = wc2.1_30s_bio_12, y = values))+
+  geom_point()+
+  geom_point(data = filter(phy_tidy_data, variable_name == "stemDia"), color = "deeppink")+
+  stat_smooth(data = filter(phy_tidy_data, variable_name == "stemDia"), method = "lm", color = "blue")+
+  stat_cor(data = filter(phy_tidy_data, variable_name == "stemDia"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
+  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "stemDia"),label.x.npc = 0, label.y.npc = 0.95)+
+  scale_x_continuous(name = "Annual Precipatation")+
+  scale_y_continuous(name = "Stem Diameter")+
+  facet_wrap(.~variable_name, nrow = 1)+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggsave("./figures/phy_dia_regression_bio12.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = filter(phy_tidy_data, variable_name == "stemDia"), aes(x = wc2.1_30s_elev, y = values))+
+  geom_point()+
+  geom_point(data = filter(phy_tidy_data, variable_name == "stemDia"), color = "deeppink")+
+  stat_smooth(data = filter(phy_tidy_data, variable_name == "stemDia"), method = "lm", color = "blue")+
+  stat_cor(data = filter(phy_tidy_data, variable_name == "stemDia"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
+  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "stemDia"),label.x.npc = 0, label.y.npc = 0.95)+
+  scale_x_continuous(name = "Elevation")+
+  scale_y_continuous(name = "Stem Diameter")+
+  facet_wrap(.~variable_name, nrow = 1)+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggsave("./figures/phy_dia_regression_elev.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = wc2.1_30s_bio_1, y = values))+
+  geom_point()+
+  geom_point(data = filter(phy_tidy_data, variable_name == "leafLong"), color = "deeppink")+
+  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafLong"), method = "lm", color = "blue")+
+  stat_cor(data = filter(phy_tidy_data, variable_name == "leafLong"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
+  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafLong"),label.x.npc = 0, label.y.npc = 0.95)+
+  scale_x_continuous(name = "Annual Mean Temperature")+
+  scale_y_continuous(name = "Leaf Length")+
+  facet_wrap(.~variable_name, nrow = 1)+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggsave("./figures/phy_long_regression_bio1.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = wc2.1_30s_bio_7, y = values))+
+  geom_point()+
+  geom_point(data = filter(phy_tidy_data, variable_name == "leafLong"), color = "deeppink")+
+  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafLong"), method = "lm", color = "blue")+
+  stat_cor(data = filter(phy_tidy_data, variable_name == "leafLong"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
+  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafLong"),label.x.npc = 0, label.y.npc = 0.95)+
+  scale_x_continuous(name = "Annual Temperature Range")+
+  scale_y_continuous(name = "Leaf Length")+
+  facet_wrap(.~variable_name, nrow = 1)+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggsave("./figures/phy_long_regression_bio7.png", width = 10, height = 8, dpi = 600)
+
+

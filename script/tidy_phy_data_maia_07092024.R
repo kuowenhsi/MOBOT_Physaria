@@ -6,28 +6,77 @@ library(ggpubr)
 setwd("C:/Users/maial/Downloads/MBG REU/MOBOT_Physaria")
 
 phy_tidy_data <- read_csv("data/physaria_buf_climate_data_20240717_l.csv")
+phy_climate_data <- read_csv("data/physaria_buf_climate_data_20240717.csv")
 unique(phy_tidy_data$variable_name)
 
 # Create the boxplot and add the ANOVA results
-p <- ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = as.factor(wc2.1_30s_bio_1), y = values)) +
-  geom_boxplot(fill = "deeppink", color = "black") +
+p <- ggplot(data = phy_climate_data, aes(x = reorder(Site, wc2.1_30s_bio_1), y = as.numeric(numRos.1))) +
+  stat_summary(geom = "col",  fun = "mean",fill = "deeppink", color = "black") +
+  stat_summary(geom = "errorbar", fun.min =  "mean", fun.max = function(x){mean(x) + (sd(x)/sqrt(length(x)))})+
   stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
-  scale_x_discrete(name = "Annual Mean Temperature") +
-  scale_y_continuous(name = "Leaf Area") +
-  facet_wrap(.~variable_name, nrow = 1) +
+  scale_x_discrete(name = "Site (sorted by AMT)") +
+  scale_y_continuous(name = "Number of Rosettes Counted at Week 1") +
   theme_bw() +
-  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
-  
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom", axis.text.x = element_text(angle = 90, hjust = 0.5))
+
 print(p)
 
-ggsave("./figures/phy_figure_bio1.png", width = 10, height = 8, dpi = 600)
+p1 <- ggplot(data = phy_climate_data, aes(x = reorder(Site, wc2.1_30s_bio_1), y = as.numeric(numStem.1))) +
+  stat_summary(geom = "col",  fun = "mean",fill = "deeppink", color = "black") +
+  stat_summary(geom = "errorbar", fun.min =  "mean", fun.max = function(x){mean(x) + (sd(x)/sqrt(length(x)))})+
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Site (sorted by AMT)") +
+  scale_y_continuous(name = "Number of Stems Counted at Week 1") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom", axis.text.x = element_text(angle = 90, hjust = 0.5))
+
+print(p1)
+
+p3 <- ggplot(data = phy_climate_data, aes(x = reorder(Site, wc2.1_30s_bio_1), y = as.numeric(stemLength.1))) +
+  stat_summary(geom = "col",  fun = "mean",fill = "deeppink", color = "black") +
+  stat_summary(geom = "errorbar", fun.min =  "mean", fun.max = function(x){mean(x) + (sd(x)/sqrt(length(x)))})+
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Site (sorted by AMT)") +
+  scale_y_continuous(name = "Number of Stems Counted at Week 1") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom", axis.text.x = element_text(angle = 90, hjust = 0.5))
+
+print(p3)
+
+ggsave("./figures/phy_site_stmlong_AMT_bio1.png", width = 10, height = 8, dpi = 600)
+
+p4 <- ggplot(data = phy_climate_data, aes(x = reorder(Site, wc2.1_30s_bio_1), y = as.numeric(leafArea.10))) +
+  stat_summary(geom = "col",  fun = "mean",fill = "deeppink", color = "black") +
+  stat_summary(geom = "errorbar", fun.min =  "mean", fun.max = function(x){mean(x) + (sd(x)/sqrt(length(x)))})+
+  stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
+  scale_x_discrete(name = "Site (sorted by AMT)") +
+  scale_y_continuous(name = "Leaf Area (mm^2) at Week 10") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom", axis.text.x = element_text(angle = 90, hjust = 0.5))
+
+print(p4)
+
+ggsave("./figures/phy_site_leafarea_AMT_bio1.png", width = 10, height = 8, dpi = 600)
+
+p5 <- ggplot(data = phy_climate_data, aes(x = reorder(MaternalLine, wc2.1_30s_bio_1), y = as.numeric(leafArea.10))) +
+  stat_summary(geom = "col",  fun = "mean",fill = "deeppink", color = "black") +
+  stat_summary(geom = "errorbar", fun.min =  "mean", fun.max = function(x){mean(x) + (sd(x)/sqrt(length(x)))})+
+  scale_x_discrete(name = "Maternal Line") +
+  scale_y_continuous(name = "Leaf Area (mm^2) at Week 10") +
+  facet_wrap(.~Site) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom", axis.text.x = element_text(angle = 90, hjust = 0.5))
+
+print(p5)
+
+ggsave("./figures/phy_site_leafarea_AMT_bio1_facet.png", width = 10, height = 8, dpi = 600)
 
 p2 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = as.factor(wc2.1_30s_bio_7), y = values)) +
   geom_boxplot(fill = "deeppink", color = "black") +
   stat_anova_test(label.x.npc = 0.2, label = "{method}, F({DFn},{DFd}) = {F}, ,p = {p.format}")+
   scale_x_discrete(name = "Temperature Annual Range") +
   scale_y_continuous(name = "Leaf Area") +
-  facet_wrap(.~variable_name, nrow = 1) +
+  facet_wrap(.~Site, nrow = 1) +
   theme_bw() +
   theme(panel.grid.minor = element_blank(), legend.position = "bottom")
 
@@ -324,10 +373,8 @@ ggsave("./figures/phy_figure6_elev.png", width = 10, height = 8, dpi = 600)
 ############################################################################################
 
 # Make sure your dataset has no more levels of MaternalLine than colors in the palette
-p2 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = MaternalLine, y = values, fill = MaternalLine)) +
-  geom_violin(color = "black", alpha = 0.4) +  # Using black for the outline to ensure visibility
+p2 <- ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = FlowerHead, y = values, fill = FlowerHead)) +
   geom_point(position = position_jitter(width = 0.05)) +
-  scale_fill_manual(values = palette) +
   labs(x = "Maternal Line", y = "Leaf Length (cm)") +
   theme_bw() +
   theme(legend.position = "none")
@@ -404,10 +451,10 @@ scatterplot_data <- filter(phy_tidy_data, variable_name %in% c("leafLong", "leaf
   ungroup()
 
 # Create the plot
-p3 <- ggplot(data = scatterplot_data, aes(x = MaternalLine, y = stemDia)) +
+p3 <- ggplot(data = scatterplot_data, aes(x = FlowerHead, y = leafLong)) +
   geom_point(color = "deeppink") +
   geom_smooth(method = "lm", color = "purple3", se = TRUE) +  # Add linear regression line
-  labs(x = "Site/Accession", y = "Stem Diameter") +
+  labs(x = "Maternal Line", y = "Stem Diameter") +
   theme_bw() +
   theme(legend.position = "none")
 
@@ -495,7 +542,7 @@ ggplot(data = scatterplot_data, aes(x = leafArea, y = leafLong, color = wc2.1_30
 
 ggsave("./figures/phy_facet_maternal2_07092024.png", width = 10, height = 8, dpi = 600)
 
-ggplot(data = scatterplot_data, aes(x = leafArea, y = leafLong, color = wc2.1_30s_elev)) +
+ggplot(data = phy_tidy_data, aes(x = FlowerHead, y = leafLong)) +
   geom_point() +
   geom_smooth(method = "lm", color = "deeppink", se = TRUE) +  # Add linear regression line
   stat_cor(method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
@@ -654,21 +701,84 @@ ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = wc2.1_
 
 ggsave("./figures/phy_area_regression_bio7.png", width = 10, height = 8, dpi = 600)
 
-ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = wc2.1_30s_bio_12, y = values))+
+install.packages("lme4")
+library(lme4)
+
+install.packages("lmerTest")
+library(lmerTest)
+
+anova1 <- lmer(leafArea.10 ~ Site + (1|Site:MaternalLine), data = phy_climate_data)
+
+summary(anova1)
+anova(anova1)
+
+h_area <- lmer(leafArea.10 ~ (1|Site/MaternalLine), data = phy_climate_data)
+# add all values in variance column
+# FlowerHead:MaternalLine or MaternalLine as numerator
+summary(h_area)
+
+phy_climate_data$leafLong.10 <- as.numeric(phy_climate_data$leafLong.10)
+anova2 <- lmer(leafLong.10 ~ Site + (1|Site:MaternalLine), data = phy_climate_data)
+anova(anova2)
+h_leafLong <- lmer(leafLong.10 ~ (1|Site/MaternalLine), data = phy_climate_data)
+summary(h_leafLong)
+
+phy_climate_data$numRos.1 <- as.numeric(phy_climate_data$numRos.1)
+anova3 <- lmer(numRos.1 ~ Site + (1|Site:MaternalLine), data = phy_climate_data)
+anova(anova3)
+h_numRos <- lmer(numRos.1 ~ (1|Site/MaternalLine), data = phy_climate_data)
+summary(h_numRos)
+
+phy_climate_data$numStem.1 <- as.numeric(phy_climate_data$numStem.1)
+anova4 <- lmer(numStem.1 ~ Site + (1|Site:MaternalLine), data = phy_climate_data)
+anova(anova4)
+h_numStem <- lmer(numStem.1 ~ (1|Site/MaternalLine), data = phy_climate_data)
+summary(h_numStem)
+
+phy_climate_data$stemDia.1 <- as.numeric(phy_climate_data$stemDia.1)
+anova5 <- lmer(stemDia.1 ~ Site + (1|Site:MaternalLine), data = phy_climate_data)
+anova(anova5)
+h_stemDia <- lmer(stemDia.1 ~ (1|Site/MaternalLine), data = phy_climate_data)
+summary(h_stemDia)
+
+phy_climate_data$stemLength.1 <- as.numeric(phy_climate_data$stemLength.1)
+anova6 <- lmer(stemLength.1 ~ Site + (1|Site:MaternalLine), data = phy_climate_data)
+anova(anova6)
+h_stemLength <- lmer(stemLength.1 ~ (1|Site/MaternalLine), data = phy_climate_data)
+summary(h_stemLength)
+
+phy_climate_data$numLeaf.1 <- as.numeric(phy_climate_data$numLeaf.1)
+anova7 <- lmer(numLeaf.1 ~ Site + (1|Site:MaternalLine), data = phy_climate_data)
+anova(anova7)
+h_numLeaf <- lmer(numLeaf.1 ~ (1|Site/MaternalLine), data = phy_climate_data)
+summary(h_numLeaf)
+
+phy_climate_data$leafWide.10 <- as.numeric(phy_climate_data$leafWide.10)
+anova8 <- lmer(leafWide.10 ~ Site + (1|Site:MaternalLine), data = phy_climate_data)
+anova(anova8)
+h_leafWide <- lmer(leafWide.10 ~ (1|Site/MaternalLine), data = phy_climate_data)
+summary(h_leafWide)
+
+lm2 <- lmer(leafLong.10 ~ wc2.1_30s_bio_1 + (1|MaternalLine/FlowerHead), data = phy_climate_data)
+
+summary(lm1)
+
+anova(lm1)
+
+ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = FlowerHead, y = values))+
   geom_point()+
   geom_point(data = filter(phy_tidy_data, variable_name == "leafArea"), color = "deeppink")+
   stat_smooth(data = filter(phy_tidy_data, variable_name == "leafArea"), method = "lm", color = "blue")+
   stat_cor(data = filter(phy_tidy_data, variable_name == "leafArea"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
   stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafArea"),label.x.npc = 0, label.y.npc = 0.95)+
-  scale_x_continuous(name = "Annual Precipatation")+
+  scale_x_continuous(name = "Maternal Line")+
   scale_y_continuous(name = "Leaf Area")+
-  facet_wrap(.~variable_name, nrow = 1)+
   theme_bw()+
   theme(panel.grid.minor = element_blank(), legend.position = "bottom")
 
 ggsave("./figures/phy_area_regression_bio12.png", width = 10, height = 8, dpi = 600)
 
-ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = wc2.1_30s_elev, y = values))+
+ggplot(data = filter(phy_climate_data, variable_name == "leafArea"), aes(x = wc2.1_30s_elev, y = values))+
   geom_point()+
   geom_point(data = filter(phy_tidy_data, variable_name == "leafArea"), color = "deeppink")+
   stat_smooth(data = filter(phy_tidy_data, variable_name == "leafArea"), method = "lm", color = "blue")+
@@ -766,4 +876,288 @@ ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = wc2.1_
 
 ggsave("./figures/phy_long_regression_bio7.png", width = 10, height = 8, dpi = 600)
 
+ggplot(data = filter(phy_tidy_data, variable_name == "leafLong"), aes(x = FlowerHead, y = values))+
+  geom_point()+
+  geom_point(data = filter(phy_tidy_data, variable_name == "leafLong"), color = "deeppink")+
+  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafLong"), method = "lm", color = "blue")+
+  stat_cor(data = filter(phy_tidy_data, variable_name == "leafLong"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
+  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafLong"),label.x.npc = 0, label.y.npc = 0.95)+
+  scale_x_continuous(name = "Maternal Line")+
+  scale_y_continuous(name = "Leaf Length")+
+  facet_wrap(.~variable_name, nrow = 1)+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
 
+ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = FlowerHead, y = values))+
+  geom_point()+
+  geom_point(data = filter(phy_tidy_data, variable_name == "leafArea"), color = "deeppink")+
+  stat_smooth(data = filter(phy_tidy_data, variable_name == "leafArea"), method = "lm", color = "blue")+
+  stat_cor(data = filter(phy_tidy_data, variable_name == "leafArea"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
+  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "leafArea"),label.x.npc = 0, label.y.npc = 0.95)+
+  scale_x_continuous(name = "Maternal Line")+
+  scale_y_continuous(name = "Leaf Area")+
+  facet_wrap(.~variable_name, nrow = 1)+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggplot(data = filter(phy_tidy_data, variable_name == "stemDia"), aes(x = FlowerHead, y = values))+
+  geom_point()+
+  geom_point(data = filter(phy_tidy_data, variable_name == "stemDia"), color = "deeppink")+
+  stat_smooth(data = filter(phy_tidy_data, variable_name == "stemDia"), method = "lm", color = "blue")+
+  stat_cor(data = filter(phy_tidy_data, variable_name == "stemDia"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
+  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "stemDia"),label.x.npc = 0, label.y.npc = 0.95)+
+  scale_x_continuous(name = "Maternal Line")+
+  scale_y_continuous(name = "Stem Diameter")+
+  facet_wrap(.~variable_name, nrow = 1)+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggplot(data = filter(phy_tidy_data, variable_name == "stemLength"), aes(x = FlowerHead, y = values))+
+  geom_point()+
+  geom_point(data = filter(phy_tidy_data, variable_name == "stemLength"), color = "deeppink")+
+  stat_smooth(data = filter(phy_tidy_data, variable_name == "stemLength"), method = "lm", color = "blue")+
+  stat_cor(data = filter(phy_tidy_data, variable_name == "stemLength"),method = "pearson", label.x.npc = 0, label.y.npc = 0.80)+
+  stat_regline_equation(data = filter(phy_tidy_data, variable_name == "stemLength"),label.x.npc = 0, label.y.npc = 0.95)+
+  scale_x_continuous(name = "Maternal Line")+
+  scale_y_continuous(name = "Stem Length")+
+  facet_wrap(.~variable_name, nrow = 1)+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggplot(data = phy_climate_data, aes(x = wc2.1_30s_bio_1, y = leafArea.10)) +
+  geom_point() +
+  geom_point(data = phy_climate_data, color = "deeppink") +
+  stat_smooth(data = phy_climate_data, 
+              method = "lm", 
+              formula = y ~ FlowerHead + (1/MaternalLine:FlowerHead), 
+              color = "blue") +
+  stat_cor(data = phy_climate_data, 
+           method = "pearson", 
+           label.x.npc = 0, 
+           label.y.npc = 0.80) +
+  stat_regline_equation(data = phy_climate_data, 
+                        formula = y ~ FlowerHead + (1/MaternalLine:FlowerHead), 
+                        label.x.npc = 0, 
+                        label.y.npc = 0.95) +
+  scale_x_continuous(name = "Annual Mean Temperature") +
+  scale_y_continuous(name = "Leaf Length at Week 10 (06/11/2024)") +
+  facet_wrap(.~wc2.1_30s_bio_1, nrow = 1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), 
+        legend.position = "bottom")
+
+# Load the viridis package
+install.packages("viridis")
+library(viridis)
+
+ggplot(data = phy_climate_data, aes(x = FlowerHead, y = leafLong.10, color = wc2.1_30s_bio_1)) +
+  geom_point() +
+  stat_smooth(data = phy_climate_data, method = "lm", color = "blue") +
+  stat_cor(data = phy_climate_data, method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(data = phy_climate_data, label.x.npc = 0, label.y.npc = 0.95) +
+  scale_x_continuous(name = "Maternal Line") +
+  scale_y_continuous(name = "Leaf Length (cm) at Week 10 (06/11/2024)") +
+  scale_color_viridis_c(name = "Annual Mean Temperature", option = "plasma") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+# Check the data type of the 'stemDia.1' column
+str(phy_climate_data)
+
+# Convert 'stemDia.1' column to numeric if it is not already
+phy_climate_data$stemDia.1 <- as.numeric(phy_climate_data$stemDia.1)
+
+# Now, plot using ggplot2
+ggplot(data = phy_climate_data, aes(x = FlowerHead, y = as.numeric(stemDia.1), color = wc2.1_30s_bio_1)) +
+  geom_point() +
+  stat_smooth(data = phy_climate_data, method = "lm", color = "blue") +
+  stat_cor(data = phy_climate_data, method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(data = phy_climate_data, label.x.npc = 0, label.y.npc = 0.95) +
+  scale_x_continuous(name = "Maternal Line") +
+  scale_y_continuous(name = "Stem Diameter (cm) at Week 1") +
+  scale_color_viridis_c(name = "Annual Mean Temperature", option = "plasma") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+##################################################################################
+
+ggplot(data = phy_climate_data, aes(x = wc2.1_30s_bio_1, y = leafArea.10)) +
+  geom_point(color = "deeppink") +
+  stat_smooth(data = phy_climate_data, method = "lm", color = "blue") +
+  stat_cor(data = phy_climate_data, method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(data = phy_climate_data, label.x.npc = 0, label.y.npc = 0.95) +
+  scale_x_continuous(name = "Annual Mean Temperature") +
+  scale_y_continuous(name = "Leaf Area") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+lm_phy_1 <- lmer(leafArea.10 ~ wc2.1_30s_bio_1 + (1|Site/MaternalLine), data = phy_climate_data)
+
+summary(lm_phy_1)
+anova(lm_phy_1)
+
+ggplot(data = phy_climate_data, aes(x = as.factor(wc2.1_30s_bio_1), y = leafArea.10)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  scale_x_discrete(name = "Annual Mean Temperature") +
+  scale_y_continuous(name = "Leaf Area (mm^2)") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+anova1_phy <- lmer(leafArea.10 ~ Site + (1|Site:MaternalLine), data = phy_climate_data)
+
+summary(anova1_phy)
+anova(anova1_phy)
+
+ggplot(data = phy_climate_data, aes(x = wc2.1_30s_bio_1, y = as.numeric(numRos.1))) +
+  geom_point(color = "deeppink") +
+  stat_smooth(data = phy_climate_data, method = "lm", color = "blue") +
+  stat_cor(data = phy_climate_data, method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(data = phy_climate_data, label.x.npc = 0, label.y.npc = 0.95) +
+  scale_x_continuous(name = "Annual Mean Temperature") +
+  scale_y_continuous(name = "Number of Rosettes at Week 1") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+phy_climate_data$numRos.1 <- as.numeric(phy_climate_data$numRos.1)
+
+lm_phy_2 <- lmer(numRos.1 ~ wc2.1_30s_bio_1 + (1|Site/MaternalLine), data = phy_climate_data)
+
+summary(lm_phy_2)
+anova(lm_phy_2)
+
+ggplot(data = phy_climate_data, aes(x = as.factor(wc2.1_30s_bio_1), y = numRos.1)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  scale_x_discrete(name = "Annual Mean Temperature") +
+  scale_y_continuous(name = "Number of Rosettes at Week 1") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+anova2_phy <- lmer(numRos.1 ~ Site + (1|Site:MaternalLine), data = phy_climate_data)
+
+summary(anova2_phy)
+anova(anova2_phy)
+
+ggplot(data = phy_climate_data, aes(x = wc2.1_30s_bio_1, y = as.numeric(stemLength.1))) +
+  geom_point(color = "deeppink") +
+  stat_smooth(data = phy_climate_data, method = "lm", color = "blue") +
+  stat_cor(data = phy_climate_data, method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(data = phy_climate_data, label.x.npc = 0, label.y.npc = 0.95) +
+  scale_x_continuous(name = "Annual Mean Temperature") +
+  scale_y_continuous(name = "Stem Length (cm) measured at Week 1") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggsave("./figures/phy_stemLong_regression_bio1.png", width = 10, height = 8, dpi = 600)
+
+phy_climate_data$leafWide.10 <- as.numeric(phy_climate_data$leafWide.10)
+
+lm_phy_3 <- lmer(leafWide.10 ~ wc2.1_30s_bio_1 + (1|Site/MaternalLine), data = phy_climate_data)
+
+summary(lm_phy_3)
+anova(lm_phy_3)
+
+ggplot(data = phy_climate_data, aes(x = as.factor(wc2.1_30s_bio_1), y = leafWide.10)) +
+  geom_boxplot(fill = "deeppink", color = "black") +
+  scale_x_discrete(name = "Annual Mean Temperature") +
+  scale_y_continuous(name = "Number of Rosettes at Week 1") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+anova3_phy <- lmer(leafWide.10 ~ Site + (1|Site:MaternalLine), data = phy_climate_data)
+
+summary(anova3_phy)
+anova(anova3_phy)
+
+################################################################################################
+
+ggplot(data = phy_climate_data, aes(x = FlowerHead, y = as.numeric(numRos.1), color = wc2.1_30s_bio_1)) +
+  geom_point() +
+  stat_smooth(data = phy_climate_data, method = "lm", color = "blue") +
+  stat_cor(data = phy_climate_data, method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(data = phy_climate_data, label.x.npc = 0, label.y.npc = 0.95) +
+  scale_x_continuous(name = "Maternal Line") +
+  scale_y_continuous(name = "Number of Rosettes at Week 1") +
+  scale_color_viridis_c(name = "Annual Mean Temperature", option = "plasma") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggplot(data = phy_climate_data, aes(x = FlowerHead, y = as.numeric(numStem.1), color = wc2.1_30s_bio_1)) +
+  geom_point() +
+  stat_smooth(data = phy_climate_data, method = "lm", color = "blue") +
+  stat_cor(data = phy_climate_data, method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(data = phy_climate_data, label.x.npc = 0, label.y.npc = 0.95) +
+  scale_x_continuous(name = "Maternal Line") +
+  scale_y_continuous(name = "Number of Stems at Week 1") +
+  scale_color_viridis_c(name = "Annual Mean Temperature", option = "plasma") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggplot(data = phy_climate_data, aes(x = FlowerHead, y = as.numeric(stemLength.1), color = wc2.1_30s_bio_1)) +
+  geom_point() +
+  stat_smooth(data = phy_climate_data, method = "lm", color = "blue") +
+  stat_cor(data = phy_climate_data, method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(data = phy_climate_data, label.x.npc = 0, label.y.npc = 0.95) +
+  scale_x_continuous(name = "Maternal Line") +
+  scale_y_continuous(name = "Stem Lengths at Week 1") +
+  scale_color_viridis_c(name = "Annual Mean Temperature", option = "plasma") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggsave("./figures/phy_stmlong_regression_temp.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = phy_climate_data, aes(x = FlowerHead, y = as.numeric(numLeaf.1), color = wc2.1_30s_bio_1)) +
+  geom_point() +
+  stat_smooth(data = phy_climate_data, method = "lm", color = "blue") +
+  stat_cor(data = phy_climate_data, method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(data = phy_climate_data, label.x.npc = 0, label.y.npc = 0.95) +
+  scale_x_continuous(name = "Maternal Line") +
+  scale_y_continuous(name = "Number of Leaves at Week 1") +
+  scale_color_viridis_c(name = "Annual Mean Temperature", option = "plasma") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggplot(data = phy_climate_data, aes(x = FlowerHead, y = as.numeric(leafLong.10), color = wc2.1_30s_bio_1)) +
+  geom_point() +
+  stat_smooth(data = phy_climate_data, method = "lm", color = "blue") +
+  stat_cor(data = phy_climate_data, method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(data = phy_climate_data, label.x.npc = 0, label.y.npc = 0.95) +
+  scale_x_continuous(name = "Maternal Line") +
+  scale_y_continuous(name = "Leaf Length (cm) at Week 1") +
+  scale_color_viridis_c(name = "Annual Mean Temperature", option = "plasma") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggplot(data = phy_climate_data, aes(x = FlowerHead, y = as.numeric(leafWide.10), color = wc2.1_30s_bio_1)) +
+  geom_point() +
+  stat_smooth(data = phy_climate_data, method = "lm", color = "blue") +
+  stat_cor(data = phy_climate_data, method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(data = phy_climate_data, label.x.npc = 0, label.y.npc = 0.95) +
+  scale_x_continuous(name = "Maternal Line") +
+  scale_y_continuous(name = "Leaf Width (cm) at Week 1") +
+  scale_color_viridis_c(name = "Annual Mean Temperature", option = "plasma") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggsave("./figures/phy_leafwide_regression_temp.png", width = 10, height = 8, dpi = 600)
+
+ggplot(data = phy_climate_data, aes(x = MaternalLine, y = as.numeric(leafWide.10), color = wc2.1_30s_bio_1)) +
+  geom_point() +
+  stat_smooth(data = phy_climate_data, method = "lm", color = "blue") +
+  stat_cor(data = phy_climate_data, method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(data = phy_climate_data, label.x.npc = 0, label.y.npc = 0.95) +
+  scale_x_continuous(name = "Maternal Line") +
+  scale_y_continuous(name = "Leaf Width (cm) at Week 1") +
+  scale_color_viridis_c(name = "Annual Mean Temperature", option = "plasma") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+
+ggplot(data = phy_climate_data, aes(x = Site, y = as.numeric(stemLength.1),)) +
+  geom_point() +
+  stat_smooth(data = phy_climate_data, method = "lm", color = "blue") +
+  stat_cor(data = phy_climate_data, method = "pearson", label.x.npc = 0, label.y.npc = 0.80) +
+  stat_regline_equation(data = phy_climate_data, label.x.npc = 0, label.y.npc = 0.95) +
+  scale_x_continuous(name = "Maternal Line") +
+  scale_y_continuous(name = "Leaf Width (cm) at Week 1") +
+  scale_color_viridis_c(name = "Annual Mean Temperature", option = "plasma") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")

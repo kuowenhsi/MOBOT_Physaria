@@ -2,12 +2,243 @@
 library(tidyverse)
 library(RColorBrewer)
 library(ggpubr)
+library(lme4)
 
 setwd("C:/Users/maial/Downloads/MBG REU/MOBOT_Physaria")
 
 phy_tidy_data <- read_csv("data/physaria_buf_climate_data_20240717_l.csv")
 phy_climate_data <- read_csv("data/physaria_buf_climate_data_20240717.csv")
+
 unique(phy_tidy_data$variable_name)
+
+phy_climate_data_uni <- phy_climate_data %>%
+  mutate(uni_MaternalLine = paste0(Site, as.character(MaternalLine)))
+
+# leafArea.10
+
+## Use this for heritability
+h_area <- lmer(leafArea.10 ~ (1|uni_MaternalLine), data = phy_climate_data_uni)
+summary(h_area)
+h_area_table <- as_tibble(VarCorr(h_area))
+h_area_table$vcov[[1]]/sum(h_area_table$vcov)
+
+## Use this to investigate Site's effect on trait
+## tell the model there are siblings. Samples are NOT independent from each others
+site_area_anova <- lm(leafArea.10 ~ Site, data = phy_climate_data_uni)
+site_area_anova
+summary(site_area_anova)
+anova(site_area_anova)
+
+ggplot(data = phy_climate_data_uni, aes(x = reorder(Site, wc2.1_30s_bio_1), y = leafArea.10))+
+  geom_boxplot()+
+  geom_point(aes(color = as.character(MaternalLine)), position = position_jitter(width = 0.2))+
+  theme(legend.position = "none")
+
+## Use this to investigate MaternalLine's effect on trait
+maternal_area_anova <- lm(leafArea.10 ~ uni_MaternalLine, data = phy_climate_data_uni)
+summary(maternal_area_anova)
+anova(maternal_area_anova)
+
+# leafLong.10
+
+## Use this for heritability
+h_lflong <- lmer(as.numeric(leafLong.10) ~ (1|uni_MaternalLine), data = phy_climate_data_uni)
+summary(h_lflong)
+h_lflong_table <- as_tibble(VarCorr(h_lflong))
+h_lflong_table$vcov[[1]]/sum(h_lflong_table$vcov)
+
+## Use this to investigate Site's effect on trait
+## tell the model there are siblings. Samples are NOT independent from each others
+site_lflong_anova <- lm(as.numeric(leafLong.10) ~ Site, data = phy_climate_data_uni)
+site_lflong_anova
+summary(site_lflong_anova)
+anova(site_lflong_anova)
+
+ggplot(data = phy_climate_data_uni, aes(x = reorder(Site, wc2.1_30s_bio_1), y = leafArea.10))+
+  geom_boxplot()+
+  geom_point(aes(color = as.character(MaternalLine)), position = position_jitter(width = 0.2))+
+  theme(legend.position = "none")
+
+## Use this to investigate MaternalLine's effect on trait
+maternal_lflong_anova <- lm(as.numeric(leafLong.10) ~ uni_MaternalLine, data = phy_climate_data_uni)
+summary(maternal_lflong_anova)
+anova(maternal_lflong_anova)
+
+## Use this for heritability
+h_leaflong <- lmer(as.numeric(leafLong.10) ~ (1|uni_MaternalLine), data = phy_climate_data_uni)
+summary(h_leaflong)
+h_leaflong_table <- as_tibble(VarCorr(h_leaflong))
+h_leaflong_table$vcov[[1]]/sum(h_leaflong_table$vcov)
+
+## Use this to investigate Site's effect on trait
+## tell the model there are siblings. Samples are NOT independent from each others
+h_site_lflong <- lmer(as.numeric(leafLong.10) ~ Site + (1|Site/uni_MaternalLine), data = phy_climate_data_uni)
+h_site_lflong
+summary(h_site_lflong)
+anova(h_site_lflong)
+
+ggplot(data = phy_climate_data_uni, aes(x = reorder(Site, wc2.1_30s_bio_1), y = leafArea.10))+
+  geom_boxplot()+
+  geom_point(aes(color = as.character(MaternalLine)), position = position_jitter(width = 0.2))+
+  theme(legend.position = "none")
+
+## Use this to investigate MaternalLine's effect on trait
+h_maternal_lflong <- lm(as.numeric(leafLong.10) ~ uni_MaternalLine, data = phy_climate_data_uni)
+summary(h_maternal_lflong)
+anova(h_maternal_lflong)
+# add all values in variance column
+# FlowerHead:MaternalLine or MaternalLine as numerator
+summary(h_area)
+
+# numRos.1
+
+h_numRos <- lmer(as.numeric(numRos.1) ~ (1|uni_MaternalLine), data = phy_climate_data_uni)
+summary(h_numRos)
+h_numRos_table <- as_tibble(VarCorr(h_numRos))
+h_numRos_table$vcov[[1]]/sum(h_numRos_table$vcov)
+
+## Use this to investigate Site's effect on trait
+## tell the model there are siblings. Samples are NOT independent from each others
+site_numRos_anova <- lm(as.numeric(numRos.1) ~ Site, data = phy_climate_data_uni)
+site_numRos_anova
+summary(site_numRos_anova)
+anova(site_numRos_anova)
+
+ggplot(data = phy_climate_data_uni, aes(x = reorder(Site, wc2.1_30s_bio_1), y = leafArea.10))+
+  geom_boxplot()+
+  geom_point(aes(color = as.character(MaternalLine)), position = position_jitter(width = 0.2))+
+  theme(legend.position = "none")
+
+## Use this to investigate MaternalLine's effect on trait
+maternal_numRos_anova <- lm(as.numeric(numRos.1) ~ uni_MaternalLine, data = phy_climate_data_uni)
+summary(maternal_numRos_anova)
+anova(maternal_numRos_anova)
+# add all values in variance column
+# FlowerHead:MaternalLine or MaternalLine as numerator
+
+
+## numStem.1 
+
+h_numStem <- lmer(as.numeric(numStem.1) ~ (1|uni_MaternalLine), data = phy_climate_data_uni)
+summary(h_numStem)
+h_numStem_table <- as_tibble(VarCorr(h_numStem))
+h_numStem_table$vcov[[1]]/sum(h_numStem_table$vcov)
+
+## Use this to investigate Site's effect on trait
+## tell the model there are siblings. Samples are NOT independent from each others
+site_numStem_anova <- lm(as.numeric(numStem.1) ~ Site, data = phy_climate_data_uni)
+site_numStem_anova
+summary(site_numStem_anova)
+anova(site_numStem_anova)
+
+ggplot(data = phy_climate_data_uni, aes(x = reorder(Site, wc2.1_30s_bio_1), y = leafArea.10))+
+  geom_boxplot()+
+  geom_point(aes(color = as.character(MaternalLine)), position = position_jitter(width = 0.2))+
+  theme(legend.position = "none")
+
+## Use this to investigate MaternalLine's effect on trait
+maternal_numStem_anova <- lm(as.numeric(numStem.1) ~ uni_MaternalLine, data = phy_climate_data_uni)
+summary(maternal_numStem_anova)
+anova(maternal_numStem_anova)
+# add all values in variance column
+# FlowerHead:MaternalLine or MaternalLine as numerator
+
+
+## stemDia.1
+
+h_stemDia <- lmer(as.numeric(stemDia.1) ~ (1|uni_MaternalLine), data = phy_climate_data_uni)
+summary(h_stemDia)
+h_stemDia_table <- as_tibble(VarCorr(h_stemDia))
+h_stemDia_table$vcov[[1]]/sum(h_stemDia_table$vcov)
+
+## Use this to investigate Site's effect on trait
+## tell the model there are siblings. Samples are NOT independent from each others
+site_stemDia_anova <- lm(as.numeric(stemDia.1) ~ Site, data = phy_climate_data_uni)
+site_stemDia_anova
+summary(site_stemDia_anova)
+anova(site_stemDia_anova)
+
+ggplot(data = phy_climate_data_uni, aes(x = reorder(Site, wc2.1_30s_bio_1), y = leafArea.10))+
+  geom_boxplot()+
+  geom_point(aes(color = as.character(MaternalLine)), position = position_jitter(width = 0.2))+
+  theme(legend.position = "none")
+
+## Use this to investigate MaternalLine's effect on trait
+maternal_stemDia_anova <- lm(as.numeric(stemDia.1) ~ uni_MaternalLine, data = phy_climate_data_uni)
+summary(maternal_stemDia_anova)
+anova(maternal_stemDia_anova)
+
+## stemLength.1
+
+h_stemLength <- lmer(as.numeric(stemLength.1) ~ (1|uni_MaternalLine), data = phy_climate_data_uni)
+summary(h_stemLength)
+h_stemLength_table <- as_tibble(VarCorr(h_stemLength))
+h_stemLength_table$vcov[[1]]/sum(h_stemLength_table$vcov)
+
+## Use this to investigate Site's effect on trait
+## tell the model there are siblings. Samples are NOT independent from each others
+site_stemLength_anova <- lm(as.numeric(stemLength.1) ~ Site, data = phy_climate_data_uni)
+site_stemLength_anova
+summary(site_stemLength_anova)
+anova(site_stemLength_anova)
+
+ggplot(data = phy_climate_data_uni, aes(x = reorder(Site, wc2.1_30s_bio_1), y = leafArea.10))+
+  geom_boxplot()+
+  geom_point(aes(color = as.character(MaternalLine)), position = position_jitter(width = 0.2))+
+  theme(legend.position = "none")
+
+## Use this to investigate MaternalLine's effect on trait
+maternal_stemLength_anova <- lm(as.numeric(stemLength.1) ~ uni_MaternalLine, data = phy_climate_data_uni)
+summary(maternal_stemLength_anova)
+anova(maternal_stemLength_anova)
+
+## numLeaf.1
+
+h_numLeaf <- lmer(as.numeric(numLeaf.1) ~ (1|uni_MaternalLine), data = phy_climate_data_uni)
+summary(h_numLeaf)
+h_numLeaf_table <- as_tibble(VarCorr(h_numLeaf))
+h_numLeaf_table$vcov[[1]]/sum(h_numLeaf_table$vcov)
+
+## Use this to investigate Site's effect on trait
+## tell the model there are siblings. Samples are NOT independent from each others
+site_numLeaf_anova <- lm(as.numeric(numLeaf.1) ~ Site, data = phy_climate_data_uni)
+site_numLeaf_anova
+summary(site_numLeaf_anova)
+anova(site_numLeaf_anova)
+
+ggplot(data = phy_climate_data_uni, aes(x = reorder(Site, wc2.1_30s_bio_1), y = as.numeric(numLeaf.1)))+
+  geom_boxplot()+
+  geom_point(aes(color = as.character(MaternalLine)), position = position_jitter(width = 0.2))+
+  theme(legend.position = "none")
+
+## Use this to investigate MaternalLine's effect on trait
+maternal_numLeaf_anova <- lm(as.numeric(numLeaf.1) ~ uni_MaternalLine, data = phy_climate_data_uni)
+summary(maternal_numLeaf_anova)
+anova(maternal_numLeaf_anova)
+
+## leafWide.10
+
+h_leafWide <- lmer(as.numeric(leafWide.10) ~ (1|uni_MaternalLine), data = phy_climate_data_uni)
+summary(h_leafWide)
+h_leafWide_table <- as_tibble(VarCorr(h_leafWide))
+h_leafWide_table$vcov[[1]]/sum(h_leafWide_table$vcov)
+
+## Use this to investigate Site's effect on trait
+## tell the model there are siblings. Samples are NOT independent from each others
+site_lfWide_anova <- lm(as.numeric(leafWide.10) ~ Site, data = phy_climate_data_uni)
+site_lfWide_anova
+summary(site_lfWide_anova)
+anova(site_lfWide_anova)
+
+ggplot(data = phy_climate_data_uni, aes(x = reorder(Site, wc2.1_30s_bio_1), y = as.numeric(numLeaf.1)))+
+  geom_boxplot()+
+  geom_point(aes(color = as.character(MaternalLine)), position = position_jitter(width = 0.2))+
+  theme(legend.position = "none")
+
+## Use this to investigate MaternalLine's effect on trait
+maternal_lfWide_anova <- lm(as.numeric(leafWide.10) ~ uni_MaternalLine, data = phy_climate_data_uni)
+summary(maternal_lfWide_anova)
+anova(maternal_lfWide_anova)
 
 # Create the boxplot and add the ANOVA results
 p <- ggplot(data = phy_climate_data, aes(x = reorder(Site, wc2.1_30s_bio_1), y = as.numeric(numRos.1))) +
@@ -702,20 +933,23 @@ ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = wc2.1_
 ggsave("./figures/phy_area_regression_bio7.png", width = 10, height = 8, dpi = 600)
 
 install.packages("lme4")
-library(lme4)
+
 
 install.packages("lmerTest")
 library(lmerTest)
 
-anova1 <- lmer(leafArea.10 ~ Site + (1|Site:MaternalLine), data = phy_climate_data)
+anova1 <- lm(leafArea.10 ~ paste0(Site, as.character(MaternalLine)), data = phy_climate_data)
 
 summary(anova1)
 anova(anova1)
 
-h_area <- lmer(leafArea.10 ~ (1|Site/MaternalLine), data = phy_climate_data)
-# add all values in variance column
-# FlowerHead:MaternalLine or MaternalLine as numerator
-summary(h_area)
+phy_climate_data_uni <- phy_climate_data %>%
+  mutate(uni_MaternalLine = paste0(Site, as.character(MaternalLine)))
+
+anova2 <- lm(stemLength.1 ~ MaternalLine, data = phy_climate_data)
+
+summary(anova2)
+anova(anova2)
 
 phy_climate_data$leafLong.10 <- as.numeric(phy_climate_data$leafLong.10)
 anova2 <- lmer(leafLong.10 ~ Site + (1|Site:MaternalLine), data = phy_climate_data)
@@ -776,7 +1010,7 @@ ggplot(data = filter(phy_tidy_data, variable_name == "leafArea"), aes(x = Flower
   theme_bw()+
   theme(panel.grid.minor = element_blank(), legend.position = "bottom")
 
-ggsave("./figures/phy_area_regression_bio12.png", width = 10, height = 8, dpi = 600)
+ggsave("./figures/phy_area_regression_bio12.png", width = 5, height = 4, dpi = 1200)
 
 ggplot(data = filter(phy_climate_data, variable_name == "leafArea"), aes(x = wc2.1_30s_elev, y = values))+
   geom_point()+

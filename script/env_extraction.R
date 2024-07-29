@@ -56,43 +56,25 @@ plot(mexico_state, axes = TRUE)
 
 
 env_files[[19]]
-env_layer <- raster(paste0("/Users/kuowenhsi/OneDrive\ -\ Washington\ University\ in\ St.\ Louis/Undergrad/Grace/Env_varibles/", env_files[[19]]))
+env_layer <- raster(paste0("/Users/kuowenhsi/OneDrive\ -\ Washington\ University\ in\ St.\ Louis/Undergrad/Grace/Env_varibles/", env_files[[1]]))%>%
+  crop(extent(-90, -82, 34, 40))
 
-plot(env_layer, xlim = c(-124, -121), ylim = c(48, 50), axes = TRUE)
-points(cyano_data$Longitude, cyano_data$Latitude)
+plot(env_layer, axes = TRUE)
+points(Physaria_data$Longitude, Physaria_data$Latitude)
 
 points(x = -75.06528, y = 38.61383)
 
-plot(env_layer, xlim = c(-75.2, -74.8), ylim = c(38.5, 38.7), axes = TRUE)
-points(x = -75.06528, y = 38.61383)
-# 
-# env_files[[17]]
 
-extracted_env_list <- list()
-
-for (i in 1:length(env_files)) {
-  env_layer <- raster(paste0("/Users/kuowenhsi/OneDrive\ -\ Washington\ University\ in\ St.\ Louis/Undergrad/Grace/Env_varibles/", env_files[[i]])) 
-  class(env_layer)
-  crs(env_layer) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0" 
-  crs(env_layer)
-  extracted_env <- raster::extract(env_layer, cyano_data_sf, df = TRUE)
-  
-  extracted_env_list[[i]] <- as.tibble(extracted_env)[,2]
-}
-
-extracted_env_df <- bind_cols(extracted_env_list)
-
-##############
 
 extracted_buf_env_list <- list()
 
 for (i in 1:length(env_files)) {
+  print(env_files[[i]])
   env_layer <- raster(paste0("/Users/kuowenhsi/OneDrive\ -\ Washington\ University\ in\ St.\ Louis/Undergrad/Grace/Env_varibles/", env_files[[i]])) 
   class(env_layer)
   crs(env_layer) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0" 
   crs(env_layer)
-  extracted_env <- raster::extract(env_layer, cyano_data_sf, buffer = 1000,fun = mean, na.rm = TRUE, df = TRUE)
-  
+  extracted_env <- raster::extract(env_layer, Physaria_data_sf, buffer = 1000,fun = mean, na.rm = TRUE, df = TRUE)
   extracted_buf_env_list[[i]] <- as.tibble(extracted_env)[,2]
 }
 
@@ -107,9 +89,12 @@ any(is.na(extracted_buf_env_df))
 
 
 
-cyano_climate_data <- bind_cols(cyano_data, extracted_buf_env_df)
+Physaria_climate_data <- bind_cols(Physaria_data[,1:3], extracted_buf_env_df)
 
-write_csv(cyano_climate_data, "cyano_buf_climate_data_419.csv")
+write_csv(Physaria_climate_data, "./data/Physaria_buf_climate_data_20240724.csv")
+
+
+##############
 
 plot(env_layer)
 class(env_layer)

@@ -8,6 +8,44 @@ setwd("/Users/kuowenhsi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.L
 
 phy_tidy_data <- read_csv("./data/Physaria_MergedData_tidy_20240703.csv")
 
+Physaria_data_rep <- phy_tidy_data %>%
+  group_by(MaternalLine, County, FlowerHead, Index)%>%
+  summarize()%>%
+  arrange(Index)%>%
+  # .[1:150,]%>%
+  group_by(MaternalLine, County, FlowerHead)%>%
+  summarise(rep = n())%>%
+  ungroup()%>%
+  mutate(species = "Physaria")
+
+
+unique(Physaria_data_rep$MaternalLine)
+
+# transform it to a edge list!
+edges_level1_2 <- Physaria_data_rep %>% select(level1 = species, level2 = County) %>% unique %>% rename(from=level1, to=level2)
+edges_level2_3 <- Physaria_data_rep %>% select(level2 = County, level3 = MaternalLine) %>% unique %>% rename(from=level2, to=level3)
+edges_level3_4 <- Physaria_data_rep %>% mutate(FlowerHead = paste0(FlowerHead, " (", rep, ")")) %>% select(level3 = MaternalLine, level4 = FlowerHead)  %>% rename(from=level3, to=level4)
+
+edge_list=rbind(edges_level1_2, edges_level2_3, edges_level3_4)
+
+# Now we can plot that
+mygraph <- graph_from_data_frame( edge_list )
+ggraph(mygraph, layout = 'dendrogram', circular = F, ) + 
+  geom_edge_diagonal2(color = "gray80") +
+  geom_node_point() +
+  scale_y_reverse()+
+  geom_node_label(aes(label=name, filter = !leaf), angle=0 , hjust=0.5, size = 4) +
+  geom_node_text(aes(label=name, filter = leaf), angle=0 , hjust=0, size = 3, nudge_y = 0.05) +
+  theme_void()+
+  theme(plot.background = element_rect(fill = "white"))+
+  coord_flip()
+
+ggsave("Physaria_sample_structure.png", width = 10, height = 20)
+
+
+
+
+
 unique(phy_tidy_data$variable_name)
 colnames(phy_tidy_data)
 unique(phy_tidy_data$Longitude)

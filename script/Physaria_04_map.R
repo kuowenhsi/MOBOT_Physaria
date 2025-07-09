@@ -14,18 +14,24 @@ setwd("/Users/kuowenhsi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.L
 env_files <- list.files("/Users/kuowenhsi/OneDrive - Washington University in St. Louis/Undergrad/Grace/Env_varibles", pattern = "*.tif$")
 env_files
 
-Physaria_data <- read_csv("./data/Physaria_MergedData_20240703.csv")
+Physaria_library <-readxl::read_xlsx("/Users/kuowenhsi/Library/CloudStorage/OneDrive-MissouriBotanicalGarden/General - IMLS National Leadership Grant 2023/Genotyping/DNA_stock/DNA_stock_Physaria150_dilution.xlsx")%>%pull(index)
+
+Physaria_data <- read_csv("./data/Physaria_MergedData_20240703.csv")%>%
+  filter(Index %in% Physaria_library)
 
 Physaria_data_sf <- st_as_sf(Physaria_data, coords = c("Longitude", "Latitude"), agr = "constant", crs = 4326)
 
 Physaria_data_label <- Physaria_data %>%
   group_by(MaternalLine) %>%
-  summarise(Longitude = mean(Longitude), Latitude = mean(Latitude))%>%
+  summarise(Longitude = mean(Longitude), Latitude = mean(Latitude), n = n())%>%
   ungroup()%>%
   st_as_sf(coords = c("Longitude", "Latitude"), agr = "constant", crs = 4326)%>%
   st_transform(crs = 3857)
 
 Physaria_data_label_3857 <- cbind(st_drop_geometry(Physaria_data_label), st_coordinates(Physaria_data_label))
+
+Physaria_other_collections <- read_csv("./data/Physaria_other_collections.csv")%>%
+  st_as_sf(coords = c("Long", "Lat"), agr = "constant", crs = 4326)
 
 # Get and crop country boundaries
 usa_state <- ne_states(country = "United States of America", returnclass = "sf") %>%
@@ -86,16 +92,18 @@ p <- ggplot(data = Physaria_data_sf) +
   geom_sf(data = canada_state, fill = NA, color = "gray75") +
   geom_sf(data = mexico_state, fill = NA, color = "gray75") +
   geom_sf()+
-  geom_sf(data = sf_object, color = "red", linewidth = 1, fill = NA) + 
-  geom_text_repel(data = Physaria_data_label_3857, aes(x = X, y = Y, label = MaternalLine), force_pull = 0.01, force = 30, max.overlaps = 25, size = 3, inherit.aes = FALSE,min.segment.length = 0.1)+
+  geom_sf(data = Physaria_other_collections, color = "red", shape = 2) +
+  geom_sf_text(data = Physaria_other_collections, aes(label = `Voucher number/ code`),color = "red", nudge_x = 20000) +
+  geom_text_repel(data = Physaria_data_label_3857, aes(x = X, y = Y, label = paste(MaternalLine, n, sep = "*")), force_pull = 0.01, force = 45, max.overlaps = 25, size = 3, inherit.aes = FALSE,min.segment.length = 1.5)+
   xlab("") +
   ylab("") +
   theme_bw() +
   theme(legend.position = "bottom", legend.box = "vertical", panel.grid = element_blank()) +
-  coord_sf(xlim = c(-13e6, -8e6), ylim = c(2.5e6, 6e6), expand = FALSE, crs = 3857) +
+  coord_sf(xlim = c(-10.2e6, -8.9e6), ylim = c(4e6, 5e6), expand = FALSE, crs = 3857) +
   annotation_scale(location = "br", width_hint = 0.25)
 
-ggsave("./figures/Physaria_map_20240709.png", width = 8, height = 6, dpi = 900)
+p
+ggsave("./figures/Physaria_map_20250521.png", width = 25, height = 22, dpi = 900)
 
 
 # Extract legend from the PCA plot

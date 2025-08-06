@@ -1,0 +1,418 @@
+IQ-TREE 3.0.1 built Jul  9 2025
+
+Input file name: Physaria_Chr_1_1-28212464.filtered_subsetfilter_filtered_all_samples.min4.phy
+Type of analysis: tree reconstruction
+Random seed number: 378777
+
+REFERENCES
+----------
+
+To cite IQ-TREE 3 please use:
+
+Thomas K.F. Wong, Nhan Ly-Trong, Huaiyan Ren, Hector Banos, Andrew J. Roger,
+Edward Susko, Chris Bielow, Nicola De Maio, Nick Goldman, Matthew W. Hahn,
+Gavin Huttley, Robert Lanfear, Bui Quang Minh (2025)
+IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models.
+Submitted.
+
+Please also cite the following paper(s) for the feature(s) that you used:
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 155 sequences with 257595 nucleotide sites
+Number of constant sites: 93083 (= 36.1354% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 93083 (= 36.1354% of all sites)
+Number of parsimony informative sites: 135627
+Number of distinct site patterns: 228435
+
+SUBSTITUTION PROCESS
+--------------------
+
+Model of substitution: GTR+F+G4
+
+Rate parameter R:
+
+  A-C: 0.9981
+  A-G: 3.3113
+  A-T: 1.3337
+  C-G: 0.6227
+  C-T: 3.3067
+  G-T: 1.0000
+
+State frequencies: (empirical counts from alignment)
+
+  pi(A) = 0.2512
+  pi(C) = 0.2497
+  pi(G) = 0.2495
+  pi(T) = 0.2496
+
+Rate matrix Q:
+
+  A    -1.065    0.1885    0.6251    0.2518
+  C    0.1897   -0.9316    0.1175    0.6244
+  G    0.6293    0.1176   -0.9358    0.1888
+  T    0.2535    0.6245    0.1888    -1.067
+
+Model of rate heterogeneity: Gamma with 4 categories
+Gamma shape alpha: 0.3921
+
+ Category  Relative_rate  Proportion
+  1         0.0156         0.25
+  2         0.1759         0.25
+  3         0.7226         0.25
+  4         3.086          0.25
+Relative rates are computed as MEAN of the portion of the Gamma distribution falling in the category.
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -2721081.7474 (s.e. 6748.0208)
+Unconstrained log-likelihood (without tree): -3116482.7822
+Number of free parameters (#branches + #model parameters): 316
+Akaike information criterion (AIC) score: 5442795.4948
+Corrected Akaike information criterion (AICc) score: 5442796.2736
+Bayesian information criterion (BIC) score: 5446100.5843
+
+Total tree length (sum of branch lengths): 3.7158
+Sum of internal branch lengths: 3.0890 (83.1302% of tree length)
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Binoshi_224' is drawn at root
+
++--Binoshi_224
+|
+|  +--Binoshi_225
++--|
+|  |                +--Binoshi_230
+|  |           +----|
+|  |           |    +--Binoshi_232
+|  +-----------|
+|              |                                                                  +--Physaria_001
+|              |                                                               +--|
+|              |                                                               |  +--Physaria_012
+|              |                                                            +--|
+|              |                                                            |  +--Physaria_123
+|              |                                                         +--|
+|              |                                                         |  |     +--Physaria_002
+|              |                                                         |  |  +--|
+|              |                                                         |  |  |  +--Physaria_077
+|              |                                                         |  +--|
+|              |                                                         |     +--Physaria_109
+|              |                                                      +--|
+|              |                                                      |  +--Physaria_151
+|              |                                                   +--|
+|              |                                                   |  |        +--Physaria_065
+|              |                                                   |  |     +--|
+|              |                                                   |  |     |  +--Physaria_101
+|              |                                                   |  |  +--|
+|              |                                                   |  |  |  +--Physaria_111
+|              |                                                   |  +--|
+|              |                                                   |     |  +--Physaria_136
+|              |                                                   |     +--|
+|              |                                                   |        +--Physaria_142
+|              |                                                +--|
+|              |                                                |  +--Physaria_075
+|              |                                             +--|
+|              |                                             |  |  +--Physaria_040
+|              |                                             |  +--|
+|              |                                             |     +--Physaria_066
+|              |                                          +--|
+|              |                                          |  |        +--Physaria_015
+|              |                                          |  |     +--|
+|              |                                          |  |     |  +--Physaria_127
+|              |                                          |  |  +--|
+|              |                                          |  |  |  +--Physaria_113
+|              |                                          |  +--|
+|              |                                          |     |     +--Physaria_056
+|              |                                          |     |  +--|
+|              |                                          |     |  |  |  +--Physaria_070
+|              |                                          |     |  |  +--|
+|              |                                          |     |  |     +--Physaria_091
+|              |                                          |     +--|
+|              |                                          |        +--Physaria_126
+|              |                                       +--|
+|              |                                       |  |                 +--Physaria_003
+|              |                                       |  |              +--|
+|              |                                       |  |              |  +--Physaria_145
+|              |                                       |  |           +--|
+|              |                                       |  |           |  |  +--Physaria_011
+|              |                                       |  |           |  +--|
+|              |                                       |  |           |     +--Physaria_058
+|              |                                       |  |        +--|
+|              |                                       |  |        |  |  +--Physaria_108
+|              |                                       |  |        |  +--|
+|              |                                       |  |        |     +--Physaria_118
+|              |                                       |  |     +--|
+|              |                                       |  |     |  +--Physaria_124
+|              |                                       |  |  +--|
+|              |                                       |  |  |  |           +--Physaria_059
+|              |                                       |  |  |  |        +--|
+|              |                                       |  |  |  |        |  +--Physaria_072
+|              |                                       |  |  |  |     +--|
+|              |                                       |  |  |  |     |  +--Physaria_149
+|              |                                       |  |  |  |  +--|
+|              |                                       |  |  |  |  |  +--Physaria_102
+|              |                                       |  |  |  +--|
+|              |                                       |  |  |     +--Physaria_152
+|              |                                       |  +--|
+|              |                                       |     +--Physaria_018
+|              +---------------------------------------|
+|                                                      |                    +--Physaria_004
+|                                                      |                 +--|
+|                                                      |                 |  +--Physaria_129
+|                                                      |              +--|
+|                                                      |              |  |  +--Physaria_041
+|                                                      |              |  +--|
+|                                                      |              |     |  +--Physaria_131
+|                                                      |              |     +--|
+|                                                      |              |        +--Physaria_143
+|                                                      |           +--|
+|                                                      |           |  +--Physaria_025
+|                                                      |        +--|
+|                                                      |        |  |  +--Physaria_062
+|                                                      |        |  +--|
+|                                                      |        |     +--Physaria_115
+|                                                      |     +--|
+|                                                      |     |  |  +--Physaria_030
+|                                                      |     |  +--|
+|                                                      |     |     +--Physaria_096
+|                                                      |  +--|
+|                                                      |  |  |                 +--Physaria_007
+|                                                      |  |  |              +--|
+|                                                      |  |  |              |  |              +--Physaria_009
+|                                                      |  |  |              |  |           +--|
+|                                                      |  |  |              |  |           |  |     +--Physaria_044
+|                                                      |  |  |              |  |           |  |  +--|
+|                                                      |  |  |              |  |           |  |  |  +--Physaria_054
+|                                                      |  |  |              |  |           |  +--|
+|                                                      |  |  |              |  |           |     +--Physaria_060
+|                                                      |  |  |              |  |        +--|
+|                                                      |  |  |              |  |        |  |     +--Physaria_021
+|                                                      |  |  |              |  |        |  |  +--|
+|                                                      |  |  |              |  |        |  |  |  +--Physaria_027
+|                                                      |  |  |              |  |        |  +--|
+|                                                      |  |  |              |  |        |     |  +--Physaria_073
+|                                                      |  |  |              |  |        |     +--|
+|                                                      |  |  |              |  |        |        +--Physaria_141
+|                                                      |  |  |              |  |     +--|
+|                                                      |  |  |              |  |     |  +--Physaria_107
+|                                                      |  |  |              |  |  +--|
+|                                                      |  |  |              |  |  |  +--Physaria_046
+|                                                      |  |  |              |  +--|
+|                                                      |  |  |              |     |     +--Physaria_100
+|                                                      |  |  |              |     |  +--|
+|                                                      |  |  |              |     |  |  +--Physaria_121
+|                                                      |  |  |              |     +--|
+|                                                      |  |  |              |        +--Physaria_104
+|                                                      |  |  |           +--|
+|                                                      |  |  |           |  |  +--Physaria_052
+|                                                      |  |  |           |  +--|
+|                                                      |  |  |           |     +--Physaria_098
+|                                                      |  |  |        +--|
+|                                                      |  |  |        |  |     +--Physaria_039
+|                                                      |  |  |        |  |  +--|
+|                                                      |  |  |        |  |  |  +--Physaria_153
+|                                                      |  |  |        |  +--|
+|                                                      |  |  |        |     +--Physaria_132
+|                                                      |  |  |     +--|
+|                                                      |  |  |     |  |           +--Physaria_045
+|                                                      |  |  |     |  |        +--|
+|                                                      |  |  |     |  |        |  +--Physaria_090
+|                                                      |  |  |     |  |     +--|
+|                                                      |  |  |     |  |     |  +**Physaria_135
+|                                                      |  |  |     |  |  +--|
+|                                                      |  |  |     |  |  |  +--Physaria_088
+|                                                      |  |  |     |  +--|
+|                                                      |  |  |     |     |        +--Physaria_133
+|                                                      |  |  |     |     |     +--|
+|                                                      |  |  |     |     |     |  +**Physaria_150
+|                                                      |  |  |     |     |  +--|
+|                                                      |  |  |     |     |  |  +--Physaria_140
+|                                                      |  |  |     |     +--|
+|                                                      |  |  |     |        +--Physaria_147
+|                                                      |  |  |  +--|
+|                                                      |  |  |  |  |           +--Physaria_008
+|                                                      |  |  |  |  |        +--|
+|                                                      |  |  |  |  |        |  |        +--Physaria_019
+|                                                      |  |  |  |  |        |  |     +--|
+|                                                      |  |  |  |  |        |  |     |  +--Physaria_146
+|                                                      |  |  |  |  |        |  |  +--|
+|                                                      |  |  |  |  |        |  |  |  |     +--Physaria_022
+|                                                      |  |  |  |  |        |  |  |  |  +--|
+|                                                      |  |  |  |  |        |  |  |  |  |  |  +--Physaria_112
+|                                                      |  |  |  |  |        |  |  |  |  |  +--|
+|                                                      |  |  |  |  |        |  |  |  |  |     +--Physaria_144
+|                                                      |  |  |  |  |        |  |  |  +--|
+|                                                      |  |  |  |  |        |  |  |     +--Physaria_053
+|                                                      |  |  |  |  |        |  +--|
+|                                                      |  |  |  |  |        |     |  +--Physaria_078
+|                                                      |  |  |  |  |        |     +--|
+|                                                      |  |  |  |  |        |        |  +--Physaria_097
+|                                                      |  |  |  |  |        |        +--|
+|                                                      |  |  |  |  |        |           +--Physaria_130
+|                                                      |  |  |  |  |     +--|
+|                                                      |  |  |  |  |     |  |        +--Physaria_010
+|                                                      |  |  |  |  |     |  |     +--|
+|                                                      |  |  |  |  |     |  |     |  +--Physaria_016
+|                                                      |  |  |  |  |     |  |  +--|
+|                                                      |  |  |  |  |     |  |  |  |  +--Physaria_024
+|                                                      |  |  |  |  |     |  |  |  +--|
+|                                                      |  |  |  |  |     |  |  |     +--Physaria_074
+|                                                      |  |  |  |  |     |  +--|
+|                                                      |  |  |  |  |     |     |  +--Physaria_094
+|                                                      |  |  |  |  |     |     +--|
+|                                                      |  |  |  |  |     |        +--Physaria_105
+|                                                      |  |  |  |  |  +--|
+|                                                      |  |  |  |  |  |  |     +--Physaria_037
+|                                                      |  |  |  |  |  |  |  +--|
+|                                                      |  |  |  |  |  |  |  |  +--Physaria_122
+|                                                      |  |  |  |  |  |  +--|
+|                                                      |  |  |  |  |  |     |        +--Physaria_048
+|                                                      |  |  |  |  |  |     |     +--|
+|                                                      |  |  |  |  |  |     |     |  +--Physaria_086
+|                                                      |  |  |  |  |  |     |  +--|
+|                                                      |  |  |  |  |  |     |  |  +--Physaria_085
+|                                                      |  |  |  |  |  |     +--|
+|                                                      |  |  |  |  |  |        +--Physaria_139
+|                                                      |  |  |  |  +--|
+|                                                      |  |  |  |     +--Physaria_114
+|                                                      |  |  +--|
+|                                                      |  |     |                    +--Physaria_013
+|                                                      |  |     |                 +--|
+|                                                      |  |     |                 |  +--Physaria_116
+|                                                      |  |     |              +--|
+|                                                      |  |     |              |  |  +--Physaria_093
+|                                                      |  |     |              |  +--|
+|                                                      |  |     |              |     +--Physaria_095
+|                                                      |  |     |           +--|
+|                                                      |  |     |           |  +--Physaria_043
+|                                                      |  |     |        +--|
+|                                                      |  |     |        |  +--Physaria_092
+|                                                      |  |     |     +--|
+|                                                      |  |     |     |  |  +--Physaria_036
+|                                                      |  |     |     |  +--|
+|                                                      |  |     |     |     |        +--Physaria_042
+|                                                      |  |     |     |     |     +--|
+|                                                      |  |     |     |     |     |  |  +--Physaria_063
+|                                                      |  |     |     |     |     |  +--|
+|                                                      |  |     |     |     |     |     +--Physaria_117
+|                                                      |  |     |     |     |  +--|
+|                                                      |  |     |     |     |  |  +--Physaria_082
+|                                                      |  |     |     |     +--|
+|                                                      |  |     |     |        +--Physaria_069
+|                                                      |  |     |  +--|
+|                                                      |  |     |  |  |           +--Physaria_020
+|                                                      |  |     |  |  |        +--|
+|                                                      |  |     |  |  |        |  |  +--Physaria_071
+|                                                      |  |     |  |  |        |  +--|
+|                                                      |  |     |  |  |        |     +--Physaria_128
+|                                                      |  |     |  |  |     +--|
+|                                                      |  |     |  |  |     |  |  +--Physaria_035
+|                                                      |  |     |  |  |     |  +--|
+|                                                      |  |     |  |  |     |     +--Physaria_079
+|                                                      |  |     |  |  |  +--|
+|                                                      |  |     |  |  |  |  |  +--Physaria_051
+|                                                      |  |     |  |  |  |  +--|
+|                                                      |  |     |  |  |  |     +--Physaria_119
+|                                                      |  |     |  |  +--|
+|                                                      |  |     |  |     |  +--Physaria_047
+|                                                      |  |     |  |     +--|
+|                                                      |  |     |  |        |     +--Physaria_089
+|                                                      |  |     |  |        |  +--|
+|                                                      |  |     |  |        |  |  +--Physaria_106
+|                                                      |  |     |  |        +--|
+|                                                      |  |     |  |           +--Physaria_110
+|                                                      |  |     +--|
+|                                                      |  |        |        +--Physaria_014
+|                                                      |  |        |     +--|
+|                                                      |  |        |     |  +--Physaria_038
+|                                                      |  |        |  +--|
+|                                                      |  |        |  |  +--Physaria_087
+|                                                      |  |        +--|
+|                                                      |  |           |  +--Physaria_080
+|                                                      |  |           +--|
+|                                                      |  |              +--Physaria_137
+|                                                      +--|
+|                                                         |                          +--Physaria_005
+|                                                         |                       +--|
+|                                                         |                       |  +--Physaria_084
+|                                                         |                    +--|
+|                                                         |                    |  +--Physaria_006
+|                                                         |                 +--|
+|                                                         |                 |  +--Physaria_138
+|                                                         |              +--|
+|                                                         |              |  +--Physaria_120
+|                                                         |           +--|
+|                                                         |           |  |  +--Physaria_028
+|                                                         |           |  +--|
+|                                                         |           |     |  +--Physaria_033
+|                                                         |           |     +--|
+|                                                         |           |        +--Physaria_061
+|                                                         |        +--|
+|                                                         |        |  |     +--Physaria_026
+|                                                         |        |  |  +--|
+|                                                         |        |  |  |  +--Physaria_031
+|                                                         |        |  +--|
+|                                                         |        |     +--Physaria_134
+|                                                         |     +--|
+|                                                         |     |  |              +--Physaria_032
+|                                                         |     |  |           +--|
+|                                                         |     |  |           |  |  +--Physaria_067
+|                                                         |     |  |           |  +--|
+|                                                         |     |  |           |     +--Physaria_076
+|                                                         |     |  |        +--|
+|                                                         |     |  |        |  |  +--Physaria_099
+|                                                         |     |  |        |  +--|
+|                                                         |     |  |        |     +--Physaria_125
+|                                                         |     |  |     +--|
+|                                                         |     |  |     |  |  +--Physaria_049
+|                                                         |     |  |     |  +--|
+|                                                         |     |  |     |     +--Physaria_064
+|                                                         |     |  |  +--|
+|                                                         |     |  |  |  +--Physaria_055
+|                                                         |     |  +--|
+|                                                         |     |     +--Physaria_068
+|                                                         |  +--|
+|                                                         |  |  |        +--Physaria_023
+|                                                         |  |  |     +--|
+|                                                         |  |  |     |  +--Physaria_148
+|                                                         |  |  |  +--|
+|                                                         |  |  |  |  +--Physaria_081
+|                                                         |  |  +--|
+|                                                         |  |     +--Physaria_029
+|                                                         +--|
+|                                                            |     +--Physaria_017
+|                                                            |  +--|
+|                                                            |  |  +--Physaria_034
+|                                                            +--|
+|                                                               +--Physaria_057
+|
++--Binoshi_227
+
+Tree in newick format:
+
+(Binoshi_224:0.0108063364,(Binoshi_225:0.0241940253,((Binoshi_230:0.0493296138,Binoshi_232:0.0432839358):0.1411754170,((((((((((Physaria_001:0.0028272141,Physaria_012:0.0014687471):0.0132094188,Physaria_123:0.0033226896):0.0160407314,((Physaria_002:0.0001368935,Physaria_077:0.0015674469):0.0232598931,Physaria_109:0.0061500371):0.0167394045):0.0074416899,Physaria_151:0.0130146889):0.0036536549,(((Physaria_065:0.0010523703,Physaria_101:0.0009129993):0.0083343172,Physaria_111:0.0026640584):0.0120259916,(Physaria_136:0.0019933519,Physaria_142:0.0043571313):0.0145430774):0.0066221107):0.0042802553,Physaria_075:0.0242819448):0.0154646900,(Physaria_040:0.0005673868,Physaria_066:0.0006974551):0.0290370281):0.0063040930,(((Physaria_015:0.0037318629,Physaria_127:0.0052199156):0.0115399572,Physaria_113:0.0130550194):0.0083533281,((Physaria_056:0.0007694570,(Physaria_070:0.0009434076,Physaria_091:0.0007382028):0.0077692342):0.0017828092,Physaria_126:0.0020464772):0.0371382124):0.0104229850):0.0096284416,((((((Physaria_003:0.0043952957,Physaria_145:0.0010816271):0.0137773123,(Physaria_011:0.0004099566,Physaria_058:0.0000730210):0.0163685296):0.0041358811,(Physaria_108:0.0017938630,Physaria_118:0.0025352130):0.0044769621):0.0104217633,Physaria_124:0.0005929288):0.0119155502,((((Physaria_059:0.0002189533,Physaria_072:0.0002874909):0.0085851655,Physaria_149:0.0050101475):0.0062167672,Physaria_102:0.0031587976):0.0056576163,Physaria_152:0.0043146999):0.0154495339):0.0113626070,Physaria_018:0.0140487270):0.0212015879):0.0321941541,(((((((Physaria_004:0.0015225654,Physaria_129:0.0001043591):0.0126457421,(Physaria_041:0.0013609392,(Physaria_131:0.0005256094,Physaria_143:0.0000750923):0.0020940098):0.0147631677):0.0070157867,Physaria_025:0.0028409475):0.0306860631,(Physaria_062:0.0002053742,Physaria_115:0.0002524337):0.0164497190):0.0047725567,(Physaria_030:0.0201218625,Physaria_096:0.0102691737):0.0054442764):0.0138836061,((((((Physaria_007:0.0089295323,(((((Physaria_009:0.0000988711,((Physaria_044:0.0000489459,Physaria_054:0.0003750270):0.0000563754,Physaria_060:0.0000438532):0.0007668590):0.0013990640,((Physaria_021:0.0013624865,Physaria_027:0.0002156930):0.0088319842,(Physaria_073:0.0006309806,Physaria_141:0.0002395479):0.0013007252):0.0006498354):0.0052911425,Physaria_107:0.0000952186):0.0016977768,Physaria_046:0.0001732566):0.0035335230,((Physaria_100:0.0001377123,Physaria_121:0.0022272337):0.0050095659,Physaria_104:0.0000703472):0.0121837484):0.0076116414):0.0082265270,(Physaria_052:0.0000591392,Physaria_098:0.0092659980):0.0091180775):0.0128224722,((Physaria_039:0.0003962952,Physaria_153:0.0005342611):0.0010696620,Physaria_132:0.0001672111):0.0147097205):0.0061633835,((((Physaria_045:0.0001233073,Physaria_090:0.0003252811):0.0021593307,Physaria_135:0.0000003882):0.0082030538,Physaria_088:0.0163308039):0.0245902558,(((Physaria_133:0.0005350263,Physaria_150:0.0000010654):0.0000608624,Physaria_140:0.0000060373):0.0206993730,Physaria_147:0.0025429900):0.0112807242):0.0071192237):0.0342218705,((((Physaria_008:0.0050721288,(((Physaria_019:0.0041402285,Physaria_146:0.0058702684):0.0039087717,((Physaria_022:0.0127044798,(Physaria_112:0.0001478532,Physaria_144:0.0003121673):0.0072138831):0.0067687941,Physaria_053:0.0097505880):0.0078082311):0.0050706217,(Physaria_078:0.0020809794,(Physaria_097:0.0030287722,Physaria_130:0.0024554090):0.0038869843):0.0092177253):0.0029966707):0.0079444918,(((Physaria_010:0.0002423527,Physaria_016:0.0013832189):0.0032560964,(Physaria_024:0.0010465871,Physaria_074:0.0010792691):0.0080620623):0.0046389592,(Physaria_094:0.0002728138,Physaria_105:0.0006558858):0.0065684043):0.0064154215):0.0058998898,((Physaria_037:0.0003426974,Physaria_122:0.0002863643):0.0109250558,(((Physaria_048:0.0022453771,Physaria_086:0.0007852700):0.0041223101,Physaria_085:0.0008514327):0.0048565123,Physaria_139:0.0038375423):0.0033394421):0.0042359477):0.0090234548,Physaria_114:0.0077694483):0.0398835676):0.0180311137,(((((((Physaria_013:0.0013834582,Physaria_116:0.0003204366):0.0012158416,(Physaria_093:0.0007837958,Physaria_095:0.0005523167):0.0013627998):0.0172704770,Physaria_043:0.0076085268):0.0092546630,Physaria_092:0.0080235989):0.0066881166,(Physaria_036:0.0112882316,(((Physaria_042:0.0012901812,(Physaria_063:0.0001041298,Physaria_117:0.0002689851):0.0007594524):0.0031014108,Physaria_082:0.0054994057):0.0064156778,Physaria_069:0.0026896423):0.0206761095):0.0076901888):0.0094667817,((((Physaria_020:0.0116154153,(Physaria_071:0.0134320157,Physaria_128:0.0242002859):0.0132425683):0.0064591182,(Physaria_035:0.0002245362,Physaria_079:0.0003738167):0.0150750927):0.0113624170,(Physaria_051:0.0004965292,Physaria_119:0.0002989238):0.0222780951):0.0062701263,(Physaria_047:0.0177719521,((Physaria_089:0.0050448185,Physaria_106:0.0036526206):0.0072929138,Physaria_110:0.0120826218):0.0118203173):0.0072993781):0.0089560174):0.0095755285,(((Physaria_014:0.0004948775,Physaria_038:0.0002142766):0.0146576093,Physaria_087:0.0117714795):0.0086526836,(Physaria_080:0.0028720877,Physaria_137:0.0028719382):0.0173053685):0.0042023398):0.0067222953):0.0100420214):0.0149371293,(((((((((Physaria_005:0.0002540894,Physaria_084:0.0016364198):0.0095526445,Physaria_006:0.0000301973):0.0118417807,Physaria_138:0.0068805149):0.0077562432,Physaria_120:0.0050460296):0.0080886899,(Physaria_028:0.0007804160,(Physaria_033:0.0004366465,Physaria_061:0.0001438793):0.0125843416):0.0038285574):0.0118328027,((Physaria_026:0.0062873271,Physaria_031:0.0013357222):0.0210124333,Physaria_134:0.0228586445):0.0099069695):0.0110262596,(((((Physaria_032:0.0007421306,(Physaria_067:0.0008033055,Physaria_076:0.0004302400):0.0066313165):0.0059007791,(Physaria_099:0.0001602687,Physaria_125:0.0001295709):0.0149752990):0.0020616519,(Physaria_049:0.0001222702,Physaria_064:0.0000677335):0.0022613975):0.0032060807,Physaria_055:0.0013298567):0.0032050447,Physaria_068:0.0034920498):0.0064466475):0.0070380153,(((Physaria_023:0.0001114536,Physaria_148:0.0006870590):0.0045219301,Physaria_081:0.0009645984):0.0089442182,Physaria_029:0.0053454604):0.0083840553):0.0148839212,((Physaria_017:0.0004216662,Physaria_034:0.0002425063):0.0048825363,Physaria_057:0.0031803906):0.0126329642):0.0228488143):0.0194902962):1.1144845970):0.3447825799):0.0267597559,Binoshi_227:0.0100708393);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t Physaria_Chr_1_1-28212464.filtered_subsetfilter_filtered_all_samples.min4.phy.treefile -m "GTR{0.998083,3.3113,1.3337,0.622653,3.3067}+F{0.25123,0.24966,0.249527,0.249584}+G4{0.392149}" --length 257595
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s Physaria_Chr_1_1-28212464.filtered_subsetfilter_filtered_all_samples.min4.phy --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s Physaria_Chr_1_1-28212464.filtered_subsetfilter_filtered_all_samples.min4.phy --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Tue Jul 15 09:35:37 2025
+Total CPU time used: 995.84514 seconds (0h:16m:35s)
+Total wall-clock time used: 1558.13 seconds (0h:25m:58s)
+
